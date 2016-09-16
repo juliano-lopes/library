@@ -36,7 +36,7 @@ public class Books {
 	}
 
 	public Books(String title, String author, String genrer,
-			String kindOfLiterature, String publicer) {
+			String kindOfLiterature, String publisher) {
 		if (isTitleOrAuthorEmpty(title, author)) {
 			throw new TitleAndAuthorShouldNotBeEmptyException();
 		}
@@ -44,7 +44,7 @@ public class Books {
 		this.author = author;
 		this.genrer = genrer;
 		this.kindOfLiterature = kindOfLiterature;
-		this.publisher = publicer;
+		this.publisher = publisher;
 	}
 
 	private boolean isTitleOrAuthorEmpty(String title, String author) {
