@@ -1,6 +1,6 @@
 package com.jlopes.library;
 
-public class TitleAndAuthorShouldNotBeEmptyException extends RuntimeException {
+public class BookDataShouldNotBeEmptyException extends RuntimeException {
 
 	/**
 	 * 

@@ -1,21 +1,16 @@
 package com.jlopes.library;
 
 public class Books {
-	private final String title;
+	private final long isbn;
+private final String title;
 	private final String author;
 	private final String genrer;
-	private String kindOfLiterature;
-	private String publisher;
-
-	public void setKindOfLiterature(String kindOfLiterature) {
-		this.kindOfLiterature = kindOfLiterature;
+	private final String kindOfLiterature;
+	private final String publisher;
+	public long getIsbn() {
+		return isbn;
 	}
-
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-
-	public String getTitle() {
+public String getTitle() {
 		return title;
 	}
 
@@ -34,12 +29,12 @@ public class Books {
 	public String getPublisher() {
 		return publisher;
 	}
-
-	public Books(String title, String author, String genrer,
+	public Books(long isbn, String title, String author, String genrer,
 			String kindOfLiterature, String publisher) {
-		if (isTitleOrAuthorEmpty(title, author)) {
-			throw new TitleAndAuthorShouldNotBeEmptyException();
+		if (isBookDataEmpty(isbn, title, author, genrer, kindOfLiterature, publisher)) {
+			throw new BookDataShouldNotBeEmptyException();
 		}
+		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
 		this.genrer = genrer;
@@ -47,8 +42,8 @@ public class Books {
 		this.publisher = publisher;
 	}
 
-	private boolean isTitleOrAuthorEmpty(String title, String author) {
-		if ((title == "") || (author == "")) {
+	private boolean isBookDataEmpty(long isbn, String title, String author, String genrer, String kindOfLiterature, String publisher) {
+		if((isbn==0)||(title == "") || (author == "") || (genrer=="") || (kindOfLiterature=="") || (publisher=="")) {
 			return true;
 		} else {
 			return false;
