@@ -1,7 +1,10 @@
 package com.jlopes.library;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 public class LibraryManagerTest {
@@ -37,4 +40,36 @@ public class LibraryManagerTest {
 		assertThat((quantityBooksAfterAdd > quantityBooksBeforeAdd), is(true));
 	}
 
+	@Test
+	public void shouldReturnBookAuthorIfBookFound() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+		Books book = library.shearchedBook("Se Houver Amanhã");
+		String author = book.getAuthor();
+		assertThat(author, is("Sidney Sheldon"));
+	}
+
+	@Test
+	public void shouldReturnNullBecauseBookTitleNotExists() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+		Books book = library.shearchedBook("Ordem dos Arqueiros");
+		assertNull(book);
+	}
+
+	@Test
+	public void shouldReturnTrueIfBookRemoved() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+		boolean result = library.removeBook("As Aventuras de Sharpe1");
+		assertTrue(result);
+	}
+
+	@Test
+	public void shouldReturnFalseIfBookNotRemoved() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+		boolean result = library.removeBook("Terra em Chama");
+		assertThat(result, is(false));
+	}
 }

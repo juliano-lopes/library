@@ -20,4 +20,35 @@ public class LibraryManager {
 			return false;
 		}
 	}
+
+	public Books shearchedBook(String shearch) {
+		for (Books book : books) {
+			if (book.getTitle().equals(shearch)) {
+				return book;
+			}
+		}
+		return null;
+	}
+
+	public boolean removeBook(String shearch) {
+		Books shearchedBook = shearchedBook(shearch);
+		if (!isNull(shearchedBook)) {
+			if (books.remove(shearchedBook)) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isNull(Books book) {
+		if (book == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
