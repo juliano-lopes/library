@@ -2,7 +2,7 @@ package com.jlopes.library;
 
 import java.util.List;
 
-public class LibraryManager {
+public class LibraryManager extends UtilLibrary {
 	private List<Books> books;
 
 	public LibraryManager(List<Books> books) {
@@ -47,11 +47,5 @@ public class LibraryManager {
 		}
 	}
 
-	private boolean isNull(Object obj) {
-		if (obj == null) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+
 }

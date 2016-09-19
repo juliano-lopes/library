@@ -1,6 +1,6 @@
 package com.jlopes.library;
 
-public class RentBooks {
+public class RentBooks extends UtilLibrary {
 
 	private final Usuarios usuario;
 	private final Books book;
@@ -19,14 +19,6 @@ public class RentBooks {
 		}
 		this.usuario = usuario;
 		this.book = book;
-	}
-
-	private boolean isNull(Object obj) {
-		if (obj == null) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 }
