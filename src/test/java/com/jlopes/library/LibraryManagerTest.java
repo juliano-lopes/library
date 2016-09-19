@@ -5,10 +5,17 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 
 public class LibraryManagerTest {
-	@Test
+	@Test(expected = LibraryManagerDataShouldNotBeNullException.class)
+	public void shouldReturnLibraryManagerDataShouldNotBeNullException() {
+		List<Books> books = null;
+		new LibraryManager(books);
+	}
+
 	public void shouldReturnTrueIfQuantityBooksBiggerThanZero() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());

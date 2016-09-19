@@ -6,6 +6,9 @@ public class LibraryManager {
 	private List<Books> books;
 
 	public LibraryManager(List<Books> books) {
+		if(isNull(books)){
+			throw new LibraryManagerDataShouldNotBeNullException();
+		}
 		this.books = books;
 	}
 
@@ -44,8 +47,8 @@ public class LibraryManager {
 		}
 	}
 
-	private boolean isNull(Books book) {
-		if (book == null) {
+	private boolean isNull(Object obj) {
+		if (obj == null) {
 			return true;
 		} else {
 			return false;
