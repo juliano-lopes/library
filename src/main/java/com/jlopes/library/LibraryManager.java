@@ -1,15 +1,18 @@
 package com.jlopes.library;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LibraryManager extends Utility {
 	private List<Books> books;
+	private List<RentBooks> rentBooks;
 
 	public LibraryManager(List<Books> books) {
 		if (isNull(books)) {
 			throw new LibraryManagerDataShouldNotBeNullException();
 		}
 		this.books = books;
+		this.rentBooks = new ArrayList<RentBooks>();
 	}
 
 	public int quantityBooks() {
@@ -24,19 +27,19 @@ public class LibraryManager extends Utility {
 		}
 	}
 
-	public Books shearchedBook(String shearch) {
+	public Books searchedBook(String search) {
 		for (Books book : books) {
-			if (book.getTitle().equals(shearch)) {
+			if (book.getTitle().equals(search)) {
 				return book;
 			}
 		}
 		return null;
 	}
 
-	public boolean removeBook(String shearch) {
-		Books shearchedBook = shearchedBook(shearch);
-		if (!isNull(shearchedBook)) {
-			if (books.remove(shearchedBook)) {
+	public boolean removeBook(String search) {
+		Books searchedBook = searchedBook(search);
+		if (!isNull(searchedBook)) {
+			if (books.remove(searchedBook)) {
 				return true;
 			} else {
 				return false;
@@ -44,6 +47,26 @@ public class LibraryManager extends Utility {
 
 		} else {
 			return false;
+		}
+	}
+
+	public boolean rentBook(RentBooks rentBook) {
+		if (rentBooks.add(rentBook)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public List<Books> leasedBooks() {
+		List<Books> leasedBooks = new ArrayList<Books>();
+		if (!rentBooks.isEmpty()) {
+			for (RentBooks rentBook : rentBooks) {
+				leasedBooks.add(rentBook.getBook());
+			}
+			return leasedBooks;
+		} else {
+			return null;
 		}
 	}
 

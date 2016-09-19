@@ -51,7 +51,7 @@ public class LibraryManagerTest {
 	public void shouldReturnBookAuthorIfBookFound() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Books book = library.shearchedBook("Se Houver Amanhã");
+		Books book = library.searchedBook("Se Houver Amanhã");
 		String author = book.getAuthor();
 		assertThat(author, is("Sidney Sheldon"));
 	}
@@ -60,7 +60,7 @@ public class LibraryManagerTest {
 	public void shouldReturnNullBecauseBookTitleNotExists() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Books book = library.shearchedBook("Ordem dos Arqueiros");
+		Books book = library.searchedBook("Ordem dos Arqueiros");
 		assertNull(book);
 	}
 
@@ -79,4 +79,50 @@ public class LibraryManagerTest {
 		boolean result = library.removeBook("Terra em Chama");
 		assertThat(result, is(false));
 	}
+
+	@Test
+	public void shouldReturnTrueIfBookRented() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+		Usuarios usuario = new Usuarios("Juliano", "julopys@hotmail.com",
+				"31993709668");
+		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		RentBooks rentBook = new RentBooks(usuario, searchedBook);
+		boolean result = library.rentBook(rentBook);
+		assertTrue(result);
+	}
+
+	@Test
+	public void shouldReturnListwithLeasedBooks() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+		Usuarios usuario = new Usuarios("Juliano", "julopys@hotmail.com",
+				"31993709668");
+		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		RentBooks rentBook = new RentBooks(usuario, searchedBook);
+		library.rentBook(rentBook);
+		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
+		RentBooks rentBook2 = new RentBooks(usuario, searchedBook);
+		library.rentBook(rentBook2);
+		List<Books> result = library.leasedBooks();
+		assertTrue(result != null);
+	}
+
+	@Test
+	public void shouldReturnBookTitleFistOneRented() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+		Usuarios usuario = new Usuarios("Juliano", "julopys@hotmail.com",
+				"31993709668");
+		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		RentBooks rentBook = new RentBooks(usuario, searchedBook);
+		library.rentBook(rentBook);
+		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
+		RentBooks rentBook2 = new RentBooks(usuario, searchedBook);
+		library.rentBook(rentBook2);
+		List<Books> leasedBooks = library.leasedBooks();
+		String result = leasedBooks.get(0).getTitle();
+		assertThat(result, is("Se Houver Amanhã"));
+	}
+
 }
