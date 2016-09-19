@@ -1,6 +1,6 @@
 package com.jlopes.library;
 
-public class Books {
+public class Books extends Utility {
 	private final long isbn;
 	private final String title;
 	private final String author;
@@ -34,7 +34,7 @@ public class Books {
 
 	public Books(long isbn, String title, String author, String genrer,
 			String kindOfLiterature, String publisher) {
-		if (isBookDataEmpty(isbn, title, author, genrer, kindOfLiterature,
+		if (isDataEmpty(isbn, title, author, genrer, kindOfLiterature,
 				publisher)) {
 			throw new BookDataShouldNotBeEmptyException();
 		}
@@ -46,14 +46,15 @@ public class Books {
 		this.publisher = publisher;
 	}
 
-	private boolean isBookDataEmpty(long isbn, String title, String author,
-			String genrer, String kindOfLiterature, String publisher) {
-		if ((isbn == 0) || (title.equals("")) || (author.equals(""))
-				|| (genrer.equals("")) || (kindOfLiterature.equals(""))
-				|| (publisher.equals(""))) {
+	private boolean isDataEmpty(long isbn, String... params) {
+		if (isbn == 0) {
+			return true;
+		}
+		if (super.isDataEmpty(params)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+
 }

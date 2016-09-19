@@ -1,6 +1,6 @@
 package com.jlopes.library;
 
-public class RentBooks extends UtilLibrary {
+public class RentBooks extends Utility {
 
 	private final Usuarios usuario;
 	private final Books book;

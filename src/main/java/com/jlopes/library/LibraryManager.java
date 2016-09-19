@@ -2,11 +2,11 @@ package com.jlopes.library;
 
 import java.util.List;
 
-public class LibraryManager extends UtilLibrary {
+public class LibraryManager extends Utility {
 	private List<Books> books;
 
 	public LibraryManager(List<Books> books) {
-		if(isNull(books)){
+		if (isNull(books)) {
 			throw new LibraryManagerDataShouldNotBeNullException();
 		}
 		this.books = books;
@@ -46,6 +46,5 @@ public class LibraryManager extends UtilLibrary {
 			return false;
 		}
 	}
-
 
 }
