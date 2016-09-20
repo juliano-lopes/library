@@ -1,6 +1,6 @@
 package com.jlopes.library;
 
-public class UsuarioDataShouldNotBeEmptyException extends RuntimeException {
+public class UserDataShouldNotBeEmptyException extends RuntimeException {
 
 	/**
 	 * 

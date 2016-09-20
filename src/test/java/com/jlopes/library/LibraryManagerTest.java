@@ -84,10 +84,9 @@ public class LibraryManagerTest {
 	public void shouldReturnTrueIfBookRented() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Usuarios usuario = new Usuarios("Juliano", "julopys@hotmail.com",
-				"31993709668");
+		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
 		Books searchedBook = library.searchedBook("Se Houver Amanhã");
-		RentBooks rentBook = new RentBooks(usuario, searchedBook);
+		RentBooks rentBook = new RentBooks(user, searchedBook);
 		boolean result = library.rentBook(rentBook);
 		assertTrue(result);
 	}
@@ -96,13 +95,12 @@ public class LibraryManagerTest {
 	public void shouldReturnListwithLeasedBooks() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Usuarios usuario = new Usuarios("Juliano", "julopys@hotmail.com",
-				"31993709668");
+		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
 		Books searchedBook = library.searchedBook("Se Houver Amanhã");
-		RentBooks rentBook = new RentBooks(usuario, searchedBook);
+		RentBooks rentBook = new RentBooks(user, searchedBook);
 		library.rentBook(rentBook);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
-		RentBooks rentBook2 = new RentBooks(usuario, searchedBook);
+		RentBooks rentBook2 = new RentBooks(user, searchedBook);
 		library.rentBook(rentBook2);
 		List<Books> result = library.leasedBooks();
 		assertTrue(result != null);
@@ -112,13 +110,12 @@ public class LibraryManagerTest {
 	public void shouldReturnBookTitleFistOneRented() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Usuarios usuario = new Usuarios("Juliano", "julopys@hotmail.com",
-				"31993709668");
+		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
 		Books searchedBook = library.searchedBook("Se Houver Amanhã");
-		RentBooks rentBook = new RentBooks(usuario, searchedBook);
+		RentBooks rentBook = new RentBooks(user, searchedBook);
 		library.rentBook(rentBook);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
-		RentBooks rentBook2 = new RentBooks(usuario, searchedBook);
+		RentBooks rentBook2 = new RentBooks(user, searchedBook);
 		library.rentBook(rentBook2);
 		List<Books> leasedBooks = library.leasedBooks();
 		String result = leasedBooks.get(0).getTitle();

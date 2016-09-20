@@ -2,22 +2,22 @@ package com.jlopes.library;
 
 public class RentBooks extends Utility {
 
-	private final Usuarios usuario;
+	private final Users user;
 	private final Books book;
 
-	public Usuarios getUsuario() {
-		return usuario;
+	public Users getUser() {
+		return user;
 	}
 
 	public Books getBook() {
 		return book;
 	}
 
-	public RentBooks(Usuarios usuario, Books book) {
-		if ((isNull(usuario)) || (isNull(book))) {
+	public RentBooks(Users user, Books book) {
+		if ((isNull(user)) || (isNull(book))) {
 			throw new RentBookDataShouldNotBeNullException();
 		}
-		this.usuario = usuario;
+		this.user = user;
 		this.book = book;
 	}
 

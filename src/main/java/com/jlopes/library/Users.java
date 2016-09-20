@@ -1,6 +1,6 @@
 package com.jlopes.library;
 
-public class Usuarios extends Utility {
+public class Users extends Utility {
 	private final String name;
 	private final String email;
 	private final String phone;
@@ -17,9 +17,9 @@ public class Usuarios extends Utility {
 		return phone;
 	}
 
-	public Usuarios(String name, String email, String phone) {
+	public Users (String name, String email, String phone) {
 		if (isDataEmpty(name, email, phone)) {
-			throw new UsuarioDataShouldNotBeEmptyException();
+			throw new UserDataShouldNotBeEmptyException();
 		}
 		this.name = name;
 		this.email = email;
