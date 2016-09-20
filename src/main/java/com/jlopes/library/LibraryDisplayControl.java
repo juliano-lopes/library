@@ -11,7 +11,7 @@ public class LibraryDisplayControl {
 	}
 
 	public int menuOptions() {
-		int option;
+
 		System.out
 				.println("Bem-vindo(a) à sua Biblioteca!\n\n"
 						+ "O que gostaria de fazer?\n\n"
@@ -22,7 +22,29 @@ public class LibraryDisplayControl {
 						+ "5. - Realizar a devolução de um livro;\n"
 						+ "6. - Sair do sistema...\n");
 		entry = new Scanner(System.in);
-		option = entry.nextInt();
-		return option;
+
+		return entry.nextInt();
 	}
+
+	public int displayWithAllTheBooks() {
+
+		System.out
+				.println("Veja o que temos em nossa biblioteca para você!\n"
+						+ "Caso queira realizar a retirada de alguma das obras exibidas, por favor digite o número correspondente a ela.\n"
+						+ "Para voltar ao menu digite '0': \n\n");
+		int arrow = 1;
+		for (Books book : this.library.getBooks()) {
+			System.out.println("LIVRO " + arrow + "\n" + "Título: "
+					+ book.getTitle() + "\n" + "Autor: " + book.getAuthor()
+					+ "\n" + "Gênero: " + book.getGenrer() + "\n"
+					+ "Tipo de Literatura: " + book.getKindOfLiterature()
+					+ "\n" + "Editora: " + book.getPublisher() + "\n"
+					+ "====================\n\n");
+			arrow++;
+		}
+		entry = new Scanner(System.in);
+
+		return entry.nextInt();
+	}
+
 }
