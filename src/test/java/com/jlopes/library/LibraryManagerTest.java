@@ -122,4 +122,23 @@ public class LibraryManagerTest {
 		assertThat(result, is("Se Houver Amanhã"));
 	}
 
+	@Test
+	public void shouldReturnQuantityAvailableBooks() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+
+		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
+		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		RentBooks rentBook = new RentBooks(user, searchedBook);
+		library.rentBook(rentBook);
+		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
+		RentBooks rentBook2 = new RentBooks(user, searchedBook);
+		library.rentBook(rentBook2);
+
+		List<Books> availableBooks = library.availableBooks();
+		int quantityAvailableBooks = availableBooks.size();
+		int quantityBooks = library.quantityBooks();
+		assertThat(quantityAvailableBooks, is(quantityBooks - 2));
+
+	}
 }

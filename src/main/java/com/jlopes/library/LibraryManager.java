@@ -11,7 +11,7 @@ public class LibraryManager extends Utility {
 		if (isNull(books)) {
 			throw new LibraryManagerDataShouldNotBeNullException();
 		}
-		this.books = books;
+		this.books = new ArrayList<Books>(books);
 		this.rentBooks = new ArrayList<RentBooks>();
 	}
 
@@ -66,8 +66,14 @@ public class LibraryManager extends Utility {
 			}
 			return leasedBooks;
 		} else {
-			return null;
+			return leasedBooks;
 		}
+	}
+
+	public List<Books> availableBooks() {
+		List<Books> availableBooks = new ArrayList<Books>(books);
+		availableBooks.removeAll(leasedBooks());
+		return availableBooks;
 	}
 
 }
