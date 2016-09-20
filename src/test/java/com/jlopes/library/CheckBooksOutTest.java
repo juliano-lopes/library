@@ -4,7 +4,7 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class RentBookTest {
+public class CheckBooksOutTest {
 	@Test
 	public void shouldReturnUserNameThatRentedTheBook() {
 		Users user = new Users("Juliano Lopes", "julopys@hotmail.com",
@@ -12,8 +12,8 @@ public class RentBookTest {
 		Books book = new Books(123, "As Aventuras de Sharpe1",
 				"Bernard Cornwell", "Fixão Histórica",
 				"Literatura Estrangeira", "Record");
-		RentBooks rentBook = new RentBooks(user, book);
-		String result = rentBook.getUser().getName();
+		CheckBooksOut checkBookOut = new CheckBooksOut(user, book);
+		String result = checkBookOut.getUser().getName();
 		assertThat(result, is("Juliano Lopes"));
 	}
 
@@ -24,8 +24,8 @@ public class RentBookTest {
 		Books book = new Books(123, "As Aventuras de Sharpe1",
 				"Bernard Cornwell", "Fixão Histórica",
 				"Literatura Estrangeira", "Record");
-		RentBooks rentBook = new RentBooks(user, book);
-		String result = rentBook.getBook().getTitle();
+		CheckBooksOut checkBookOut = new CheckBooksOut(user, book);
+		String result = checkBookOut.getBook().getTitle();
 		assertThat(result, is("As Aventuras de Sharpe1"));
 	}
 

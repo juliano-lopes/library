@@ -16,35 +16,12 @@ public class LibraryManagerTest {
 		new LibraryManager(books);
 	}
 
+	@Test
 	public void shouldReturnTrueIfQuantityBooksBiggerThanZero() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
 		int quantityBooks = library.quantityBooks();
 		assertThat((quantityBooks > 0), is(true));
-	}
-
-	@Test
-	public void shouldReturnTrueIfBookAdded() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Books book1 = new Books(6, "As Aventuras de Sharpe5",
-				"Bernard Cornwell", "Fixão Histórica",
-				"Literatura Estrangeira", "Record");
-		Boolean result = library.addBook(book1);
-		assertThat(result, is(true));
-	}
-
-	@Test
-	public void shouldReturnTrueIfQuantityBooksIsBiggerAfterBookAdded() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Books book1 = new Books(6, "As Aventuras de Sharpe5",
-				"Bernard Cornwell", "Fixão Histórica",
-				"Literatura Estrangeira", "Record");
-		int quantityBooksBeforeAdd = library.quantityBooks();
-		library.addBook(book1);
-		int quantityBooksAfterAdd = library.quantityBooks();
-		assertThat((quantityBooksAfterAdd > quantityBooksBeforeAdd), is(true));
 	}
 
 	@Test
@@ -65,60 +42,44 @@ public class LibraryManagerTest {
 	}
 
 	@Test
-	public void shouldReturnTrueIfBookRemoved() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		boolean result = library.removeBook("As Aventuras de Sharpe1");
-		assertTrue(result);
-	}
-
-	@Test
-	public void shouldReturnFalseIfBookNotRemoved() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		boolean result = library.removeBook("Terra em Chama");
-		assertThat(result, is(false));
-	}
-
-	@Test
-	public void shouldReturnTrueIfBookRented() {
+	public void shouldReturnTrueIfBookCheckedOut() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
 		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
 		Books searchedBook = library.searchedBook("Se Houver Amanhã");
-		RentBooks rentBook = new RentBooks(user, searchedBook);
-		boolean result = library.rentBook(rentBook);
+		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
+		boolean result = library.checkingBookOut(checkBookOut);
 		assertTrue(result);
 	}
 
 	@Test
-	public void shouldReturnListwithLeasedBooks() {
+	public void shouldReturnListWithCheckedBooksOut() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
 		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
 		Books searchedBook = library.searchedBook("Se Houver Amanhã");
-		RentBooks rentBook = new RentBooks(user, searchedBook);
-		library.rentBook(rentBook);
+		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
-		RentBooks rentBook2 = new RentBooks(user, searchedBook);
-		library.rentBook(rentBook2);
-		List<Books> result = library.leasedBooks();
+		CheckBooksOut checkBookOut2 = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut2);
+		List<Books> result = library.checkedBooksOut();
 		assertTrue(result != null);
 	}
 
 	@Test
-	public void shouldReturnBookTitleFistOneRented() {
+	public void shouldReturnBookTitleFirstOneCheckedOut() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
 		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
 		Books searchedBook = library.searchedBook("Se Houver Amanhã");
-		RentBooks rentBook = new RentBooks(user, searchedBook);
-		library.rentBook(rentBook);
+		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
-		RentBooks rentBook2 = new RentBooks(user, searchedBook);
-		library.rentBook(rentBook2);
-		List<Books> leasedBooks = library.leasedBooks();
-		String result = leasedBooks.get(0).getTitle();
+		CheckBooksOut checkBookOut2 = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut2);
+		List<Books> checkedBooksOut = library.checkedBooksOut();
+		String result = checkedBooksOut.get(0).getTitle();
 		assertThat(result, is("Se Houver Amanhã"));
 	}
 
@@ -129,16 +90,60 @@ public class LibraryManagerTest {
 
 		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
 		Books searchedBook = library.searchedBook("Se Houver Amanhã");
-		RentBooks rentBook = new RentBooks(user, searchedBook);
-		library.rentBook(rentBook);
+		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
-		RentBooks rentBook2 = new RentBooks(user, searchedBook);
-		library.rentBook(rentBook2);
+		CheckBooksOut checkBookOut2 = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut2);
 
 		List<Books> availableBooks = library.availableBooks();
 		int quantityAvailableBooks = availableBooks.size();
 		int quantityBooks = library.quantityBooks();
 		assertThat(quantityAvailableBooks, is(quantityBooks - 2));
+	}
+
+	@Test
+	public void shouldReturnQuantityBooksThisUserCheckedOut() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+
+		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
+		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut);
+		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
+		CheckBooksOut checkBookOut2 = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut2);
+
+		List<CheckBooksOut> checkedBooksOut = library
+				.checkedBooksOutByUser("Juliano");
+		int quantityCheckedBooksOutByUser = checkedBooksOut.size();
+		assertThat(quantityCheckedBooksOutByUser, is(2));
+	}
+
+	@Test
+	public void shouldReturnTrueIfQuantityCheckedBooksOutByUserIsLeastAfterCheckBookIn() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
+		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut);
+		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
+		CheckBooksOut checkBookOut2 = new CheckBooksOut(user, searchedBook);
+		library.checkingBookOut(checkBookOut2);
+		List<CheckBooksOut> checkedBooksOut = library
+				.checkedBooksOutByUser("Juliano");
+		int quantityCheckedBooksOutByUser = checkedBooksOut.size();
+		library.checkingBookIn(checkedBooksOut.get(0));
+		checkedBooksOut = library.checkedBooksOutByUser("Juliano");
+
+		int quantityCheckedBooksOutByUserAfterDevolution = checkedBooksOut
+				.size();
+		assertThat(
+				quantityCheckedBooksOutByUserAfterDevolution < quantityCheckedBooksOutByUser,
+				is(true));
 
 	}
+
 }

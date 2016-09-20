@@ -1,6 +1,6 @@
 package com.jlopes.library;
 
-public class RentBookDataShouldNotBeNullException extends RuntimeException {
+public class CheckBookOutDataShouldNotBeNullException extends RuntimeException {
 
 	/**
 	 * 

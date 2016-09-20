@@ -5,26 +5,22 @@ import java.util.List;
 
 public class LibraryManager extends Utility {
 	private List<Books> books;
-	private List<RentBooks> rentBooks;
+	private List<CheckBooksOut> checkBooksOut;
+
+	public List<Books> getBooks() {
+		return books;
+	}
 
 	public LibraryManager(List<Books> books) {
 		if (isNull(books)) {
 			throw new LibraryManagerDataShouldNotBeNullException();
 		}
 		this.books = new ArrayList<Books>(books);
-		this.rentBooks = new ArrayList<RentBooks>();
+		this.checkBooksOut = new ArrayList<CheckBooksOut>();
 	}
 
 	public int quantityBooks() {
 		return books.size();
-	}
-
-	public boolean addBook(Books book) {
-		if (books.add(book)) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	public Books searchedBook(String search) {
@@ -36,43 +32,54 @@ public class LibraryManager extends Utility {
 		return null;
 	}
 
-	public boolean removeBook(String search) {
-		Books searchedBook = searchedBook(search);
-		if (!isNull(searchedBook)) {
-			if (books.remove(searchedBook)) {
-				return true;
-			} else {
-				return false;
-			}
+	public boolean checkingBookIn(CheckBooksOut checkBookOut) {
 
+		if (checkBooksOut.remove(checkBookOut)) {
+			return true;
 		} else {
 			return false;
 		}
+
 	}
 
-	public boolean rentBook(RentBooks rentBook) {
-		if (rentBooks.add(rentBook)) {
+	public boolean checkingBookOut(CheckBooksOut checkBookOut) {
+		if (checkBooksOut.add(checkBookOut)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public List<Books> leasedBooks() {
-		List<Books> leasedBooks = new ArrayList<Books>();
-		if (!rentBooks.isEmpty()) {
-			for (RentBooks rentBook : rentBooks) {
-				leasedBooks.add(rentBook.getBook());
+	public List<Books> checkedBooksOut() {
+		List<Books> checkedBooksOut = new ArrayList<Books>();
+		if (!checkBooksOut.isEmpty()) {
+			for (CheckBooksOut checkBookOut : checkBooksOut) {
+				checkedBooksOut.add(checkBookOut.getBook());
 			}
-			return leasedBooks;
+			return checkedBooksOut;
 		} else {
-			return leasedBooks;
+			return checkedBooksOut;
 		}
+	}
+
+	public List<CheckBooksOut> checkedBooksOutByUser(String userName) {
+		List<CheckBooksOut> checkedBooksOut = new ArrayList<CheckBooksOut>();
+		if (!checkBooksOut.isEmpty()) {
+			for (CheckBooksOut checkBookOut : checkBooksOut) {
+				if (checkBookOut.getUser().getName().equals(userName)) {
+					checkedBooksOut.add(checkBookOut);
+				}
+			}
+			return checkedBooksOut;
+		} else {
+			return checkedBooksOut;
+		}
+
 	}
 
 	public List<Books> availableBooks() {
 		List<Books> availableBooks = new ArrayList<Books>(books);
-		availableBooks.removeAll(leasedBooks());
+		availableBooks.removeAll(checkedBooksOut());
 		return availableBooks;
 	}
 

@@ -1,6 +1,6 @@
 package com.jlopes.library;
 
-public class RentBooks extends Utility {
+public class CheckBooksOut extends Utility {
 
 	private final Users user;
 	private final Books book;
@@ -13,9 +13,9 @@ public class RentBooks extends Utility {
 		return book;
 	}
 
-	public RentBooks(Users user, Books book) {
+	public CheckBooksOut(Users user, Books book) {
 		if ((isNull(user)) || (isNull(book))) {
-			throw new RentBookDataShouldNotBeNullException();
+			throw new CheckBookOutDataShouldNotBeNullException();
 		}
 		this.user = user;
 		this.book = book;
