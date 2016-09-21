@@ -18,6 +18,16 @@ public class LibraryDisplayControlTest {
 	}
 
 	@Test
+	public void shouldReturnBookTitleToSearch() {
+		LibraryService libraryService = new LibraryService();
+		LibraryManager library = new LibraryManager(libraryService.getBooks());
+		LibraryDisplayControl displayControl = new LibraryDisplayControl(
+				library);
+		String result = displayControl.displaySearchBook();
+		assertThat(result, is("terra em chamas"));
+	}
+
+	@Test
 	public void shouldReturnOptionChoosenInTheListWithAllTheBooks() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());

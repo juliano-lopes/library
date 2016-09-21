@@ -1,10 +1,14 @@
 package com.jlopes.library;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class LibraryDisplayControl {
 	LibraryManager library;
 	Scanner entry;
+	BufferedReader entryLine;
 
 	public LibraryDisplayControl(LibraryManager library) {
 		this.library = library;
@@ -13,7 +17,7 @@ public class LibraryDisplayControl {
 	public int menuOptions() {
 
 		System.out
-				.println("Bem-vindo(a) à sua Biblioteca!\n\n"
+				.println(""
 						+ "O que gostaria de fazer?\n\n"
 						+ "1. - Buscar por um livro;\n"
 						+ "2. - Listar todos os livros;\n"
@@ -24,6 +28,18 @@ public class LibraryDisplayControl {
 		entry = new Scanner(System.in);
 
 		return entry.nextInt();
+	}
+
+	public String displaySearchBook() {
+		System.out.println("Digite o título do livro que deseja buscar: \n");
+		entryLine = new BufferedReader(new InputStreamReader(System.in));
+		String search = "";
+		try {
+			search = entryLine.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return search.toLowerCase();
 	}
 
 	public int displayWithAllTheBooks() {
