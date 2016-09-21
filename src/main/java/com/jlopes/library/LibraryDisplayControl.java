@@ -3,16 +3,62 @@ package com.jlopes.library;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class LibraryDisplayControl {
-	LibraryManager library;
+public class LibraryDisplayControl extends Utility {
 	Scanner entry;
 	BufferedReader entryLine;
+	String name;
+	String email;
+	String phone;
 
-	public LibraryDisplayControl(LibraryManager library) {
-		this.library = library;
+	public void displayWellCome() {
+		System.out.println("Bem-vindo(a) à sua biBiblioteca!\n");
+	}
+
+	public List<String> displayToGetUserData() {
+		List<String> userData = new ArrayList<String>();
+		boolean ready = false;
+		while (!ready) {
+
+			System.out.println("Qual o seu nome?\n");
+			entryLine = new BufferedReader(new InputStreamReader(System.in));
+
+			try {
+				name = entryLine.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Qual seu e-mail?\n");
+			entryLine = new BufferedReader(new InputStreamReader(System.in));
+
+			try {
+				email = entryLine.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Qual seu telefone para contato?\n");
+			entryLine = new BufferedReader(new InputStreamReader(System.in));
+
+			try {
+				phone = entryLine.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (isDataEmpty(name, email, phone)) {
+				System.out
+						.println("Os dados não podem ficar em branco. Por favor, os preencha corretamente.\n");
+			} else {
+				ready = true;
+			}
+		}
+
+		userData.add(name);
+		userData.add(email);
+		userData.add(phone);
+		return userData;
 	}
 
 	public int menuOptions() {

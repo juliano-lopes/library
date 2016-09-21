@@ -1,28 +1,32 @@
 package com.jlopes.library;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.junit.Test;
 
 public class LibraryDisplayControlTest {
 	@Test
+	public void shouldReturnUserData() {
+		LibraryDisplayControl displayControl = new LibraryDisplayControl();
+		List<String> userData = displayControl.displayToGetUserData();
+		assertTrue(!userData.isEmpty());
+	}
+
+	@Test
 	public void shouldReturnAMenuOption() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		LibraryDisplayControl displayControl = new LibraryDisplayControl(
-				library);
+
+		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		int option = displayControl.menuOptions();
 		assertTrue(option > 0);
 	}
 
 	@Test
 	public void shouldReturnBookTitleToSearch() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		LibraryDisplayControl displayControl = new LibraryDisplayControl(
-				library);
+		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		String result = displayControl.displaySearchBook();
 		assertThat(result, is("terra em chamas"));
 	}
@@ -31,8 +35,7 @@ public class LibraryDisplayControlTest {
 	public void shouldReturnOptionChoosenInTheListWithAllTheBooks() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		LibraryDisplayControl displayControl = new LibraryDisplayControl(
-				library);
+		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		int option = displayControl.displayWithListBooks(library.getBooks());
 		assertThat(option, is(3));
 	}
@@ -41,8 +44,7 @@ public class LibraryDisplayControlTest {
 	public void shouldReturnOptionChoosenInTheListWithAvailableBooks() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		LibraryDisplayControl displayControl = new LibraryDisplayControl(
-				library);
+		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
 		Books book = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut myBook = new CheckBooksOut(user, book);
@@ -57,8 +59,7 @@ public class LibraryDisplayControlTest {
 	public void shouldReturnOptionChoosenInTheListToReturn() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		LibraryDisplayControl displayControl = new LibraryDisplayControl(
-				library);
+		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
 		Books book = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut myBook = new CheckBooksOut(user, book);
