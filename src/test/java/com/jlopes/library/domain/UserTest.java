@@ -1,18 +1,21 @@
-package com.jlopes.library;
+package com.jlopes.library.domain;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
-public class UsersTest {
+import com.jlopes.library.domain.User;
+import com.jlopes.library.exception.UserDataShouldNotBeEmptyException;
+
+public class UserTest {
 	@Test(expected = UserDataShouldNotBeEmptyException.class)
 	public void shouldReturnUserDataShouldNotBeEmptyException() {
-		new Users("", "julopys@hotmail.com", "31993709668");
+		new User("", "julopys@hotmail.com", "31993709668");
 	}
 
 	@Test
 	public void shouldReturnUserName() {
-		Users user = new Users("Juliano Lopes", "julopys@hotmail.com",
+		User user = new User("Juliano Lopes", "julopys@hotmail.com",
 				"31993709668");
 		String result = user.getName();
 		assertThat(result, is("Juliano Lopes"));
@@ -20,7 +23,7 @@ public class UsersTest {
 
 	@Test
 	public void shouldReturnUserEmail() {
-		Users user = new Users("Juliano Lopes", "julopys@hotmail.com",
+		User user = new User("Juliano Lopes", "julopys@hotmail.com",
 				"31993709668");
 		String result = user.getEmail();
 		assertThat(result, is("julopys@hotmail.com"));
@@ -28,7 +31,7 @@ public class UsersTest {
 
 	@Test
 	public void shouldReturnUserPhone() {
-		Users user = new Users("Juliano Lopes", "julopys@hotmail.com",
+		User user = new User("Juliano Lopes", "julopys@hotmail.com",
 				"31993709668");
 		String result = user.getPhone();
 		assertThat(result, is("31993709668"));

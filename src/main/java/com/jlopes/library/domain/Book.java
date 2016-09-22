@@ -1,6 +1,9 @@
-package com.jlopes.library;
+package com.jlopes.library.domain;
 
-public class Books extends Utility {
+import com.jlopes.library.Utility;
+import com.jlopes.library.exception.BookDataShouldNotBeEmptyException;
+
+public class Book extends Utility {
 	private final long isbn;
 	private final String title;
 	private final String author;
@@ -32,7 +35,7 @@ public class Books extends Utility {
 		return publisher;
 	}
 
-	public Books(long isbn, String title, String author, String genrer,
+	public Book(long isbn, String title, String author, String genrer,
 			String kindOfLiterature, String publisher) {
 		if (isDataEmpty(isbn, title, author, genrer, kindOfLiterature,
 				publisher)) {

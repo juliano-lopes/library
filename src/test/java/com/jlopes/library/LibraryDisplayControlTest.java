@@ -8,6 +8,10 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.jlopes.library.domain.Book;
+import com.jlopes.library.domain.User;
+import com.jlopes.library.service.LibraryService;
+
 public class LibraryDisplayControlTest {
 	@Test
 	public void shouldReturnUserData() {
@@ -45,8 +49,8 @@ public class LibraryDisplayControlTest {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
 		LibraryDisplayControl displayControl = new LibraryDisplayControl();
-		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
-		Books book = library.searchedBook("Se Houver Amanhã");
+		User user = new User("Juliano", "julopys@hotmail.com", "31993709668");
+		Book book = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut myBook = new CheckBooksOut(user, book);
 		library.checkingBookOut(myBook);
 		int option = displayControl.displayWithListBooks(library
@@ -60,8 +64,8 @@ public class LibraryDisplayControlTest {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
 		LibraryDisplayControl displayControl = new LibraryDisplayControl();
-		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
-		Books book = library.searchedBook("Se Houver Amanhã");
+		User user = new User("Juliano", "julopys@hotmail.com", "31993709668");
+		Book book = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut myBook = new CheckBooksOut(user, book);
 		library.checkingBookOut(myBook);
 		book = library.searchedBook("As Aventuras de Sharpe2");

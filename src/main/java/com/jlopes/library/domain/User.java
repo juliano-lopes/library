@@ -1,6 +1,9 @@
-package com.jlopes.library;
+package com.jlopes.library.domain;
 
-public class Users extends Utility {
+import com.jlopes.library.Utility;
+import com.jlopes.library.exception.UserDataShouldNotBeEmptyException;
+
+public class User extends Utility {
 	private final String name;
 	private final String email;
 	private final String phone;
@@ -17,7 +20,7 @@ public class Users extends Utility {
 		return phone;
 	}
 
-	public Users (String name, String email, String phone) {
+	public User (String name, String email, String phone) {
 		if (isDataEmpty(name, email, phone)) {
 			throw new UserDataShouldNotBeEmptyException();
 		}

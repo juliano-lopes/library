@@ -3,23 +3,26 @@ package com.jlopes.library;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jlopes.library.domain.Book;
+import com.jlopes.library.exception.LibraryManagerDataShouldNotBeNullException;
+
 public class LibraryManager extends Utility {
-	private List<Books> books;
+	private List<Book> books;
 	private List<CheckBooksOut> checkBooksOut;
 
 	public List<CheckBooksOut> getCheckBooksOut() {
 		return checkBooksOut;
 	}
 
-	public List<Books> getBooks() {
+	public List<Book> getBooks() {
 		return books;
 	}
 
-	public LibraryManager(List<Books> books) {
+	public LibraryManager(List<Book> books) {
 		if (isNull(books)) {
 			throw new LibraryManagerDataShouldNotBeNullException();
 		}
-		this.books = new ArrayList<Books>(books);
+		this.books = new ArrayList<Book>(books);
 		this.checkBooksOut = new ArrayList<CheckBooksOut>();
 	}
 
@@ -27,9 +30,9 @@ public class LibraryManager extends Utility {
 		return books.size();
 	}
 
-	public Books searchedBook(String search) {
+	public Book searchedBook(String search) {
 		search = search.toLowerCase();
-		for (Books book : books) {
+		for (Book book : books) {
 			if (book.getTitle().toLowerCase().equals(search)) {
 				return book;
 			}
@@ -55,8 +58,8 @@ public class LibraryManager extends Utility {
 		}
 	}
 
-	public List<Books> checkedBooksOut() {
-		List<Books> checkedBooksOut = new ArrayList<Books>();
+	public List<Book> checkedBooksOut() {
+		List<Book> checkedBooksOut = new ArrayList<Book>();
 		if (!checkBooksOut.isEmpty()) {
 			for (CheckBooksOut checkBookOut : checkBooksOut) {
 				checkedBooksOut.add(checkBookOut.getBook());
@@ -84,8 +87,8 @@ public class LibraryManager extends Utility {
 
 	}
 
-	public List<Books> availableBooks() {
-		List<Books> availableBooks = new ArrayList<Books>(books);
+	public List<Book> availableBooks() {
+		List<Book> availableBooks = new ArrayList<Book>(books);
 		availableBooks.removeAll(checkedBooksOut());
 		return availableBooks;
 	}

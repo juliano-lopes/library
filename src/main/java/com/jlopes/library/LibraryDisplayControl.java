@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.jlopes.library.domain.Book;
+
 public class LibraryDisplayControl extends Utility {
 	Scanner entry;
 	BufferedReader entryLine;
@@ -88,14 +90,14 @@ public class LibraryDisplayControl extends Utility {
 		return search.toLowerCase();
 	}
 
-	public int displayWithListBooks(List<Books> listBooks) {
+	public int displayWithListBooks(List<Book> listBooks) {
 
 		System.out
 				.println("Veja a lista de livros escolhida. \n"
 						+ "Caso queira realizar a retirada de alguma das obras exibidas, por favor digite o número correspondente à ela, quando houver. \n"
 						+ "Para voltar ao menu digite '0': \n\n");
 		int arrow = 1;
-		for (Books book : listBooks) {
+		for (Book book : listBooks) {
 			System.out.println("LIVRO " + arrow + "\n" + "Título: "
 					+ book.getTitle() + "\n" + "Autor: " + book.getAuthor()
 					+ "\n" + "Gênero: " + book.getGenrer() + "\n"

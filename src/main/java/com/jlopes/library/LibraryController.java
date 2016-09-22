@@ -3,10 +3,13 @@ package com.jlopes.library;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jlopes.library.domain.Book;
+import com.jlopes.library.domain.User;
+
 public class LibraryController extends Utility {
 	final LibraryDisplayControl displayControl;
 	private final LibraryManager library;
-	private final Users user;
+	private final User user;
 	private int option;
 
 	public void setOption(int option) {
@@ -14,7 +17,7 @@ public class LibraryController extends Utility {
 	}
 
 	public LibraryController(LibraryDisplayControl displayControl,
-			LibraryManager library, Users user) {
+			LibraryManager library, User user) {
 		this.displayControl = displayControl;
 		this.library = library;
 		this.user = user;
@@ -82,7 +85,7 @@ public class LibraryController extends Utility {
 	}
 
 	private void controlAvailableCheckBooksOut(int value) {
-		Books book = library.availableBooks().get(value - 1);
+		Book book = library.availableBooks().get(value - 1);
 		if (library.checkingBookOut(newCheckBooksOut(user, book))) {
 			displayControl.successCheckBooksOut();
 		} else {
@@ -106,12 +109,12 @@ public class LibraryController extends Utility {
 
 	private void controlToSearchBook(String search) {
 		if (!isZero(search)) {
-			Books resultSearch = library.searchedBook(search);
+			Book resultSearch = library.searchedBook(search);
 			if (isNull(resultSearch)) {
 				System.out.println("Livro não encontrado...");
 				decisionControl();
 			} else {
-				List<Books> listBooks = new ArrayList<Books>();
+				List<Book> listBooks = new ArrayList<Book>();
 				listBooks.add(resultSearch);
 				int value = displayControl.displayWithListBooks(listBooks);
 				String strValue = Integer.toString(value);
@@ -132,7 +135,7 @@ public class LibraryController extends Utility {
 	}
 
 	private void generalControlCheckBooksOut(int index) {
-		Books book = library.getBooks().get(index);
+		Book book = library.getBooks().get(index);
 		if (library.availableBooks().contains(book)) {
 			if (library.checkingBookOut(newCheckBooksOut(user, book))) {
 				displayControl.successCheckBooksOut();
@@ -145,7 +148,7 @@ public class LibraryController extends Utility {
 		decisionControl();
 	}
 
-	private CheckBooksOut newCheckBooksOut(Users user, Books book) {
+	private CheckBooksOut newCheckBooksOut(User user, Book book) {
 		return new CheckBooksOut(user, book);
 	}
 }

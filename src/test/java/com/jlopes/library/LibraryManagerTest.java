@@ -9,10 +9,15 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.jlopes.library.domain.Book;
+import com.jlopes.library.domain.User;
+import com.jlopes.library.exception.LibraryManagerDataShouldNotBeNullException;
+import com.jlopes.library.service.LibraryService;
+
 public class LibraryManagerTest {
 	@Test(expected = LibraryManagerDataShouldNotBeNullException.class)
 	public void shouldReturnLibraryManagerDataShouldNotBeNullException() {
-		List<Books> books = null;
+		List<Book> books = null;
 		new LibraryManager(books);
 	}
 
@@ -28,7 +33,7 @@ public class LibraryManagerTest {
 	public void shouldReturnBookAuthorIfBookFound() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Books book = library.searchedBook("Se Houver Amanhã");
+		Book book = library.searchedBook("Se Houver Amanhã");
 		String author = book.getAuthor();
 		assertThat(author, is("Sidney Sheldon"));
 	}
@@ -37,7 +42,7 @@ public class LibraryManagerTest {
 	public void shouldReturnNullBecauseBookTitleNotExists() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Books book = library.searchedBook("Ordem dos Arqueiros");
+		Book book = library.searchedBook("Ordem dos Arqueiros");
 		assertNull(book);
 	}
 
@@ -45,8 +50,8 @@ public class LibraryManagerTest {
 	public void shouldReturnTrueIfBookCheckedOut() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
-		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		User user = new User("Juliano", "julopys@hotmail.com", "31993709668");
+		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
 		boolean result = library.checkingBookOut(checkBookOut);
 		assertTrue(result);
@@ -56,14 +61,14 @@ public class LibraryManagerTest {
 	public void shouldReturnListWithCheckedBooksOut() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
-		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		User user = new User("Juliano", "julopys@hotmail.com", "31993709668");
+		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
 		library.checkingBookOut(checkBookOut);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
 		CheckBooksOut checkBookOut2 = new CheckBooksOut(user, searchedBook);
 		library.checkingBookOut(checkBookOut2);
-		List<Books> result = library.checkedBooksOut();
+		List<Book> result = library.checkedBooksOut();
 		assertTrue(result != null);
 	}
 
@@ -71,14 +76,14 @@ public class LibraryManagerTest {
 	public void shouldReturnBookTitleFirstOneCheckedOut() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
-		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		User user = new User("Juliano", "julopys@hotmail.com", "31993709668");
+		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
 		library.checkingBookOut(checkBookOut);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
 		CheckBooksOut checkBookOut2 = new CheckBooksOut(user, searchedBook);
 		library.checkingBookOut(checkBookOut2);
-		List<Books> checkedBooksOut = library.checkedBooksOut();
+		List<Book> checkedBooksOut = library.checkedBooksOut();
 		String result = checkedBooksOut.get(0).getTitle();
 		assertThat(result, is("Se Houver Amanhã"));
 	}
@@ -88,15 +93,15 @@ public class LibraryManagerTest {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
 
-		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
-		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		User user = new User("Juliano", "julopys@hotmail.com", "31993709668");
+		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
 		library.checkingBookOut(checkBookOut);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
 		CheckBooksOut checkBookOut2 = new CheckBooksOut(user, searchedBook);
 		library.checkingBookOut(checkBookOut2);
 
-		List<Books> availableBooks = library.availableBooks();
+		List<Book> availableBooks = library.availableBooks();
 		int quantityAvailableBooks = availableBooks.size();
 		int quantityBooks = library.quantityBooks();
 		assertThat(quantityAvailableBooks, is(quantityBooks - 2));
@@ -107,8 +112,8 @@ public class LibraryManagerTest {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
 
-		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
-		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		User user = new User("Juliano", "julopys@hotmail.com", "31993709668");
+		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
 		library.checkingBookOut(checkBookOut);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
@@ -125,8 +130,8 @@ public class LibraryManagerTest {
 	public void shouldReturnTrueIfQuantityCheckedBooksOutByUserIsLeastAfterCheckBookIn() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService.getBooks());
-		Users user = new Users("Juliano", "julopys@hotmail.com", "31993709668");
-		Books searchedBook = library.searchedBook("Se Houver Amanhã");
+		User user = new User("Juliano", "julopys@hotmail.com", "31993709668");
+		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		CheckBooksOut checkBookOut = new CheckBooksOut(user, searchedBook);
 		library.checkingBookOut(checkBookOut);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");

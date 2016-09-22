@@ -1,15 +1,19 @@
 package com.jlopes.library;
 
 import org.junit.Test;
+
+import com.jlopes.library.domain.Book;
+import com.jlopes.library.domain.User;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class CheckBooksOutTest {
 	@Test
 	public void shouldReturnUserNameThatRentedTheBook() {
-		Users user = new Users("Juliano Lopes", "julopys@hotmail.com",
+		User user = new User("Juliano Lopes", "julopys@hotmail.com",
 				"31993709668");
-		Books book = new Books(123, "As Aventuras de Sharpe1",
+		Book book = new Book(123, "As Aventuras de Sharpe1",
 				"Bernard Cornwell", "Fixão Histórica",
 				"Literatura Estrangeira", "Record");
 		CheckBooksOut checkBookOut = new CheckBooksOut(user, book);
@@ -19,9 +23,9 @@ public class CheckBooksOutTest {
 
 	@Test
 	public void shouldReturnBookTitleRented() {
-		Users user = new Users("Juliano Lopes", "julopys@hotmail.com",
+		User user = new User("Juliano Lopes", "julopys@hotmail.com",
 				"31993709668");
-		Books book = new Books(123, "As Aventuras de Sharpe1",
+		Book book = new Book(123, "As Aventuras de Sharpe1",
 				"Bernard Cornwell", "Fixão Histórica",
 				"Literatura Estrangeira", "Record");
 		CheckBooksOut checkBookOut = new CheckBooksOut(user, book);

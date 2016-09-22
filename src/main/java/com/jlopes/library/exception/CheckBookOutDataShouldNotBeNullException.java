@@ -1,4 +1,4 @@
-package com.jlopes.library;
+package com.jlopes.library.exception;
 
 public class CheckBookOutDataShouldNotBeNullException extends RuntimeException {
 
