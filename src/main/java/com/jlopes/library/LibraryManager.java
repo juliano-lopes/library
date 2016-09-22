@@ -7,6 +7,10 @@ public class LibraryManager extends Utility {
 	private List<Books> books;
 	private List<CheckBooksOut> checkBooksOut;
 
+	public List<CheckBooksOut> getCheckBooksOut() {
+		return checkBooksOut;
+	}
+
 	public List<Books> getBooks() {
 		return books;
 	}
@@ -24,8 +28,9 @@ public class LibraryManager extends Utility {
 	}
 
 	public Books searchedBook(String search) {
+		search = search.toLowerCase();
 		for (Books book : books) {
-			if (book.getTitle().equals(search)) {
+			if (book.getTitle().toLowerCase().equals(search)) {
 				return book;
 			}
 		}
@@ -63,10 +68,12 @@ public class LibraryManager extends Utility {
 	}
 
 	public List<CheckBooksOut> checkedBooksOutByUser(String userName) {
+		userName = userName.toLowerCase();
 		List<CheckBooksOut> checkedBooksOut = new ArrayList<CheckBooksOut>();
 		if (!checkBooksOut.isEmpty()) {
 			for (CheckBooksOut checkBookOut : checkBooksOut) {
-				if (checkBookOut.getUser().getName().equals(userName)) {
+				if (checkBookOut.getUser().getName().toLowerCase()
+						.equals(userName)) {
 					checkedBooksOut.add(checkBookOut);
 				}
 			}

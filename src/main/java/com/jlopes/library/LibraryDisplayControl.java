@@ -61,7 +61,7 @@ public class LibraryDisplayControl extends Utility {
 		return userData;
 	}
 
-	public int menuOptions() {
+	public int displayWithMenuOptions() {
 
 		System.out.println("" + "O que gostaria de fazer?\n\n"
 				+ "1. - Buscar por um livro;\n"
@@ -75,7 +75,9 @@ public class LibraryDisplayControl extends Utility {
 	}
 
 	public String displaySearchBook() {
-		System.out.println("Digite o título do livro que deseja buscar: \n");
+		System.out.println("Digite o título do livro que deseja buscar: \n"
+				+ "Para voltar ao menu digite '0': \n\n");
+
 		entryLine = new BufferedReader(new InputStreamReader(System.in));
 		String search = "";
 		try {
@@ -128,5 +130,34 @@ public class LibraryDisplayControl extends Utility {
 
 		return entry.nextInt();
 
+	}
+
+	public void successCheckBooksOut() {
+		System.out.println("Obrigado por utilizar nossos serviços!\n"
+				+ "Registro de retirada de livro realizado com sucesso.\n"
+				+ "Boa leitura!\n");
+	}
+
+	public void errorCheckBooksOut() {
+		System.out
+				.println("Desculpe, não foi possível registrar a retirada deste livro...\n"
+						+ "Por favor escolha outro.\n");
+	}
+
+	public void leaveSystem() {
+
+		System.out.println("Obrigado por utilizar nossos serviços!\n"
+				+ "Até breve.\n");
+		System.exit(0);
+	}
+
+	public void successCheckBooksIn() {
+		System.out.println("Obrigado por utilizar nossos serviços!\n"
+				+ "Registro de devolução de livro realizado com sucesso.\n");
+	}
+
+	public void errorCheckBooksIn() {
+		System.out
+				.println("Desculpe, não foi possível registrar a devolução deste livro...\n");
 	}
 }

@@ -1,7 +1,7 @@
 package com.jlopes.library;
 
 public abstract class Utility {
-	protected boolean isNull(Object obj) {
+	protected static boolean isNull(Object obj) {
 		if (obj == null) {
 			return true;
 		} else {
@@ -18,4 +18,12 @@ public abstract class Utility {
 		return false;
 	}
 
+	protected boolean isZero(String value) {
+		if (value.equals("0")) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
 }

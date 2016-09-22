@@ -20,7 +20,7 @@ public class LibraryDisplayControlTest {
 	public void shouldReturnAMenuOption() {
 
 		LibraryDisplayControl displayControl = new LibraryDisplayControl();
-		int option = displayControl.menuOptions();
+		int option = displayControl.displayWithMenuOptions();
 		assertTrue(option > 0);
 	}
 
