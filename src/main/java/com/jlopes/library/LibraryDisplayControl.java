@@ -17,15 +17,22 @@ public class LibraryDisplayControl {
 	}
 
 	public int displayWithMenuOptions() {
-
 		System.out.println("" + "O que gostaria de fazer?\n\n"
 				+ "1. - Buscar por um livro;\n"
 				+ "2. - Listar todos os livros;\n"
 				+ "3. - Listar somente os livros disponíveis para retirada;\n"
 				+ "4. - Realizar a devolução de um livro;\n"
 				+ "5. - Sair do sistema...\n");
+		return displayWithValidNumericInput();
+	}
+
+	private int displayWithValidNumericInput() {
 		entry = new Scanner(System.in);
 		String option = entry.nextLine();
+		if (Utility.isDataEmpty(option)) {
+			displayWithInvalidOptionMessage();
+			return 0;
+		}
 		if (Utility.isNumber(option)) {
 			return Integer.parseInt(option);
 		} else {
@@ -34,10 +41,20 @@ public class LibraryDisplayControl {
 		}
 	}
 
+	@overload
+	private int displayWithValidNumericInput(List<Book> books) {
+		int option = displayWithValidNumericInput();
+		if (option > books.size()) {
+			displayWithInvalidOptionMessage();
+			return 0;
+		} else {
+			return option;
+		}
+	}
+
 	public String displaySearchBook() {
 		System.out.println("Digite o título do livro que deseja buscar. \n"
 				+ "Para voltar ao menu digite '0': \n\n");
-
 		entryLine = new BufferedReader(new InputStreamReader(System.in));
 		String search = "";
 		try {
@@ -49,7 +66,6 @@ public class LibraryDisplayControl {
 	}
 
 	public int displayWithListBooks(List<Book> listBooks) {
-
 		System.out
 				.println("Veja a lista de livros escolhida. \n"
 						+ "Caso queira selecionar alguma das obras exibidas, por favor digite o número correspondente à ela, quando houver. \n"
@@ -64,9 +80,7 @@ public class LibraryDisplayControl {
 					+ "====================\n\n");
 			arrow++;
 		}
-		entry = new Scanner(System.in);
-
-		return entry.nextInt();
+		return displayWithValidNumericInput(listBooks);
 	}
 
 	public void displaySuccessCheckBooksOut() {
