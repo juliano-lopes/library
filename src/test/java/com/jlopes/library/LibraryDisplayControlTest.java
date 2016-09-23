@@ -12,11 +12,11 @@ import com.jlopes.library.service.LibraryService;
 
 public class LibraryDisplayControlTest {
 	@Test
-	public void shouldReturnAMenuOption() {
+	public void shouldReturnMenuOption() {
 
 		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		int option = displayControl.displayWithMenuOptions();
-		assertTrue(option > 0);
+		assertThat(option, is(1));
 	}
 
 	@Test

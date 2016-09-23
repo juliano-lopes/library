@@ -40,7 +40,13 @@ public class LibraryController {
 			controlBooksToReturn(library.getCheckedBooksOut());
 			break;
 		case 5:
-			displayControl.leaveSystem();
+			displayControl.displayLeaveSystem();
+			break;
+		default:
+			displayControl.displayWithInvalidOptionMessage();
+			option = 0;
+			decisionControl();
+			break;
 		}
 	}
 
@@ -57,9 +63,9 @@ public class LibraryController {
 
 	private void controlCheckBooksIn(Book book) {
 		if (library.checkingBookIn(book)) {
-			displayControl.successCheckBooksIn();
+			displayControl.displaySuccessCheckBooksIn();
 		} else {
-			displayControl.errorCheckBooksIn();
+			displayControl.displayErrorCheckBooksIn();
 		}
 		decisionControl();
 	}
@@ -102,12 +108,12 @@ public class LibraryController {
 	private void controlCheckBooksOut(Book book) {
 		if (library.availableBooks().contains(book)) {
 			if (library.checkingBookOut(book)) {
-				displayControl.successCheckBooksOut();
+				displayControl.displaySuccessCheckBooksOut();
 			} else {
-				displayControl.errorCheckBooksOut();
+				displayControl.displayErrorCheckBooksOut();
 			}
 		} else {
-			displayControl.errorCheckBooksOut();
+			displayControl.displayErrorCheckBooksOut();
 		}
 		decisionControl();
 	}

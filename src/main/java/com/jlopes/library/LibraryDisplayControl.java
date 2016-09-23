@@ -3,7 +3,6 @@ package com.jlopes.library;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,8 +25,13 @@ public class LibraryDisplayControl {
 				+ "4. - Realizar a devolução de um livro;\n"
 				+ "5. - Sair do sistema...\n");
 		entry = new Scanner(System.in);
-
-		return entry.nextInt();
+		String option = entry.nextLine();
+		if (Utility.isNumber(option)) {
+			return Integer.parseInt(option);
+		} else {
+			displayWithInvalidOptionMessage();
+			return 0;
+		}
 	}
 
 	public String displaySearchBook() {
@@ -65,35 +69,38 @@ public class LibraryDisplayControl {
 		return entry.nextInt();
 	}
 
-	public void successCheckBooksOut() {
+	public void displaySuccessCheckBooksOut() {
 		System.out
 				.println("Registro de retirada de livro realizado com sucesso!\n"
 						+ "Obrigado por utilizar nossos serviços.\n"
 						+ "Boa leitura!\n");
 	}
 
-	public void errorCheckBooksOut() {
+	public void displayErrorCheckBooksOut() {
 		System.out
 				.println("Desculpe, não foi possível registrar a retirada deste livro...\n"
 						+ "Por favor escolha outro.\n");
 	}
 
-	public void successCheckBooksIn() {
+	public void displaySuccessCheckBooksIn() {
 		System.out
 				.println("Registro de devolução de livro realizado com sucesso.\n"
 						+ "Obrigado por utilizar nossos serviços!\n");
 	}
 
-	public void errorCheckBooksIn() {
+	public void displayErrorCheckBooksIn() {
 		System.out
 				.println("Desculpe, não foi possível registrar a devolução deste livro...\n");
 	}
 
-	public void leaveSystem() {
-
+	public void displayLeaveSystem() {
 		System.out.println("Obrigado por utilizar nossos serviços!\n"
 				+ "Até breve.\n");
 		System.exit(0);
+	}
+
+	public void displayWithInvalidOptionMessage() {
+		System.out.println("Opção inválida...\n");
 	}
 
 }

@@ -25,4 +25,13 @@ public abstract class Utility {
 			return false;
 		}
 	}
+
+	public static boolean isNumber(String value) {
+		for (int index = 0; index < value.length(); index++) {
+			if (Character.isLetter(value.charAt(index))) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
