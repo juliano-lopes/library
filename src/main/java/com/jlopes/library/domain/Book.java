@@ -3,7 +3,7 @@ package com.jlopes.library.domain;
 import com.jlopes.library.Utility;
 import com.jlopes.library.exception.BookDataShouldNotBeEmptyException;
 
-public class Book extends Utility {
+public class Book {
 	private final long isbn;
 	private final String title;
 	private final String author;
@@ -53,7 +53,7 @@ public class Book extends Utility {
 		if (isbn == 0) {
 			return true;
 		}
-		if (super.isDataEmpty(params)) {
+		if (Utility.isDataEmpty(params)) {
 			return true;
 		} else {
 			return false;

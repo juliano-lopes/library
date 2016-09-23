@@ -3,13 +3,13 @@ package com.jlopes.library;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
 import com.jlopes.library.domain.Book;
 
-public class LibraryDisplayControl extends Utility {
+public class LibraryDisplayControl {
 	Scanner entry;
 	BufferedReader entryLine;
 	String name;
@@ -18,49 +18,6 @@ public class LibraryDisplayControl extends Utility {
 
 	public void displayWellCome() {
 		System.out.println("Bem-vindo(a) à sua biBiblioteca!\n");
-	}
-
-	public List<String> displayToGetUserData() {
-		List<String> userData = new ArrayList<String>();
-		boolean ready = false;
-		while (!ready) {
-
-			System.out.println("Qual o seu nome?\n");
-			entryLine = new BufferedReader(new InputStreamReader(System.in));
-
-			try {
-				name = entryLine.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			System.out.println("Qual seu e-mail?\n");
-			entryLine = new BufferedReader(new InputStreamReader(System.in));
-
-			try {
-				email = entryLine.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			System.out.println("Qual seu telefone para contato?\n");
-			entryLine = new BufferedReader(new InputStreamReader(System.in));
-
-			try {
-				phone = entryLine.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (isDataEmpty(name, email, phone)) {
-				System.out
-						.println("Os dados não podem ficar em branco. Por favor, os preencha corretamente.\n");
-			} else {
-				ready = true;
-			}
-		}
-
-		userData.add(name);
-		userData.add(email);
-		userData.add(phone);
-		return userData;
 	}
 
 	public int displayWithMenuOptions() {
@@ -94,7 +51,7 @@ public class LibraryDisplayControl extends Utility {
 
 		System.out
 				.println("Veja a lista de livros escolhida. \n"
-						+ "Caso queira realizar a retirada de alguma das obras exibidas, por favor digite o número correspondente à ela, quando houver. \n"
+						+ "Caso queira selecionar alguma das obras exibidas, por favor digite o número correspondente à ela, quando houver. \n"
 						+ "Para voltar ao menu digite '0': \n\n");
 		int arrow = 1;
 		for (Book book : listBooks) {
@@ -111,29 +68,6 @@ public class LibraryDisplayControl extends Utility {
 		return entry.nextInt();
 	}
 
-	public int displayWithListBooksToReturn(List<CheckBooksOut> listBooks) {
-		System.out
-				.println("Veja aqui o (s) livro (s) que identificamos em seu nome.\n"
-						+ "Caso queira realizar a devolução, digite o número que corresponde ao livro.\n"
-						+ "Para voltar ao menu digite '0':\n\n");
-		int arrow = 1;
-		for (CheckBooksOut book : listBooks) {
-			System.out.println("LIVRO " + arrow + "\n" + "Título: "
-					+ book.getBook().getTitle() + "\n" + "Autor: "
-					+ book.getBook().getAuthor() + "\n" + "Gênero: "
-					+ book.getBook().getGenrer() + "\n"
-					+ "Tipo de Literatura: "
-					+ book.getBook().getKindOfLiterature() + "\n" + "Editora: "
-					+ book.getBook().getPublisher() + "\n"
-					+ "====================\n\n");
-			arrow++;
-		}
-		entry = new Scanner(System.in);
-
-		return entry.nextInt();
-
-	}
-
 	public void successCheckBooksOut() {
 		System.out.println("Obrigado por utilizar nossos serviços!\n"
 				+ "Registro de retirada de livro realizado com sucesso.\n"
@@ -146,13 +80,6 @@ public class LibraryDisplayControl extends Utility {
 						+ "Por favor escolha outro.\n");
 	}
 
-	public void leaveSystem() {
-
-		System.out.println("Obrigado por utilizar nossos serviços!\n"
-				+ "Até breve.\n");
-		System.exit(0);
-	}
-
 	public void successCheckBooksIn() {
 		System.out.println("Obrigado por utilizar nossos serviços!\n"
 				+ "Registro de devolução de livro realizado com sucesso.\n");
@@ -162,4 +89,12 @@ public class LibraryDisplayControl extends Utility {
 		System.out
 				.println("Desculpe, não foi possível registrar a devolução deste livro...\n");
 	}
+
+	public void leaveSystem() {
+
+		System.out.println("Obrigado por utilizar nossos serviços!\n"
+				+ "Até breve.\n");
+		System.exit(0);
+	}
+
 }

@@ -5,25 +5,32 @@ import java.util.List;
 
 import com.jlopes.library.domain.Book;
 import com.jlopes.library.exception.LibraryManagerDataShouldNotBeNullException;
+import com.jlopes.library.service.LibraryService;
 
-public class LibraryManager extends Utility {
+public class LibraryManager {
+	private LibraryService libraryService;
 	private List<Book> books;
-	private List<CheckBooksOut> checkBooksOut;
-
-	public List<CheckBooksOut> getCheckBooksOut() {
-		return checkBooksOut;
-	}
+	private List<Book> checkedBooksOut;
 
 	public List<Book> getBooks() {
 		return books;
 	}
 
-	public LibraryManager(List<Book> books) {
-		if (isNull(books)) {
+	public List<Book> getCheckedBooksOut() {
+		return checkedBooksOut;
+	}
+
+	public LibraryService getLibraryService() {
+		return libraryService;
+	}
+
+	public LibraryManager(LibraryService libraryService) {
+		if (Utility.isNull(libraryService.getBooks())) {
 			throw new LibraryManagerDataShouldNotBeNullException();
 		}
-		this.books = new ArrayList<Book>(books);
-		this.checkBooksOut = new ArrayList<CheckBooksOut>();
+		this.libraryService = libraryService;
+		this.books = new ArrayList<Book>(libraryService.getBooks());
+		this.checkedBooksOut = new ArrayList<Book>();
 	}
 
 	public int quantityBooks() {
@@ -40,9 +47,9 @@ public class LibraryManager extends Utility {
 		return null;
 	}
 
-	public boolean checkingBookIn(CheckBooksOut checkBookOut) {
+	public boolean checkingBookIn(Book checkBookOut) {
 
-		if (checkBooksOut.remove(checkBookOut)) {
+		if (checkedBooksOut.remove(checkBookOut)) {
 			return true;
 		} else {
 			return false;
@@ -50,46 +57,17 @@ public class LibraryManager extends Utility {
 
 	}
 
-	public boolean checkingBookOut(CheckBooksOut checkBookOut) {
-		if (checkBooksOut.add(checkBookOut)) {
+	public boolean checkingBookOut(Book checkBookOut) {
+		if (checkedBooksOut.add(checkBookOut)) {
 			return true;
 		} else {
 			return false;
 		}
-	}
-
-	public List<Book> checkedBooksOut() {
-		List<Book> checkedBooksOut = new ArrayList<Book>();
-		if (!checkBooksOut.isEmpty()) {
-			for (CheckBooksOut checkBookOut : checkBooksOut) {
-				checkedBooksOut.add(checkBookOut.getBook());
-			}
-			return checkedBooksOut;
-		} else {
-			return checkedBooksOut;
-		}
-	}
-
-	public List<CheckBooksOut> checkedBooksOutByUser(String userName) {
-		userName = userName.toLowerCase();
-		List<CheckBooksOut> checkedBooksOut = new ArrayList<CheckBooksOut>();
-		if (!checkBooksOut.isEmpty()) {
-			for (CheckBooksOut checkBookOut : checkBooksOut) {
-				if (checkBookOut.getUser().getName().toLowerCase()
-						.equals(userName)) {
-					checkedBooksOut.add(checkBookOut);
-				}
-			}
-			return checkedBooksOut;
-		} else {
-			return checkedBooksOut;
-		}
-
 	}
 
 	public List<Book> availableBooks() {
 		List<Book> availableBooks = new ArrayList<Book>(books);
-		availableBooks.removeAll(checkedBooksOut());
+		availableBooks.removeAll(checkedBooksOut);
 		return availableBooks;
 	}
 

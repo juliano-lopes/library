@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jlopes.library.domain.Book;
-import com.jlopes.library.domain.User;
 
-public class LibraryController extends Utility {
+public class LibraryController {
 	final LibraryDisplayControl displayControl;
 	private final LibraryManager library;
-	private final User user;
 	private int option;
 
 	public void setOption(int option) {
@@ -17,10 +15,9 @@ public class LibraryController extends Utility {
 	}
 
 	public LibraryController(LibraryDisplayControl displayControl,
-			LibraryManager library, User user) {
+			LibraryManager library) {
 		this.displayControl = displayControl;
 		this.library = library;
-		this.user = user;
 	}
 
 	public void decisionControl() {
@@ -34,34 +31,35 @@ public class LibraryController extends Utility {
 			controlToSearchBook(search);
 			break;
 		case 2:
-			controlListWithAllTheBooks();
+
+			controlListBooks(library.getBooks());
 			break;
 		case 3:
-			controlListWithAvailableBooks();
+			controlListBooks(library.availableBooks());
 			break;
 		case 4:
-			controlBooksToReturn();
+
+			controlBooksToReturn(library.getCheckedBooksOut());
 			break;
 		case 5:
 			displayControl.leaveSystem();
 		}
 	}
 
-	private void controlBooksToReturn() {
-		int value = displayControl.displayWithListBooksToReturn(library
-				.checkedBooksOutByUser(user.getName()));
+	private void controlBooksToReturn(List<Book> list) {
+		int value = displayControl.displayWithListBooks(list);
 		String strValue = Integer.toString(value);
-		if (isZero(strValue)) {
+
+		if (Utility.isZero(strValue)) {
 			option = value;
 			decisionControl();
 		} else {
-			generalControlCheckBooksIn(value - 1);
+			controlCheckBooksIn(list.get(value - 1));
 		}
 	}
 
-	private void generalControlCheckBooksIn(int index) {
-		CheckBooksOut checkBookOut = library.getCheckBooksOut().get(index);
-		if (library.checkingBookIn(checkBookOut)) {
+	private void controlCheckBooksIn(Book book) {
+		if (library.checkingBookIn(book)) {
 			displayControl.successCheckBooksIn();
 		} else {
 			displayControl.errorCheckBooksIn();
@@ -70,47 +68,23 @@ public class LibraryController extends Utility {
 
 	}
 
-	private void controlListWithAvailableBooks() {
-		int value = displayControl.displayWithListBooks(library
-				.availableBooks());
+	private void controlListBooks(List<Book> books) {
+		int value = displayControl.displayWithListBooks(books);
 		String strValue = Integer.toString(value);
-		if (isZero(strValue)) {
+		if (Utility.isZero(strValue)) {
 
 			option = value;
 			decisionControl();
 		} else {
-			controlAvailableCheckBooksOut(value);
-		}
-
-	}
-
-	private void controlAvailableCheckBooksOut(int value) {
-		Book book = library.availableBooks().get(value - 1);
-		if (library.checkingBookOut(newCheckBooksOut(user, book))) {
-			displayControl.successCheckBooksOut();
-		} else {
-			displayControl.errorCheckBooksOut();
-		}
-		decisionControl();
-
-	}
-
-	private void controlListWithAllTheBooks() {
-		int value = displayControl.displayWithListBooks(library.getBooks());
-		String strValue = Integer.toString(value);
-		if (isZero(strValue)) {
-			option = value;
-			decisionControl();
-		} else {
-			generalControlCheckBooksOut(value - 1);
+			controlCheckBooksOut(books.get(value - 1));
 		}
 
 	}
 
 	private void controlToSearchBook(String search) {
-		if (!isZero(search)) {
+		if (!Utility.isZero(search)) {
 			Book resultSearch = library.searchedBook(search);
-			if (isNull(resultSearch)) {
+			if (Utility.isNull(resultSearch)) {
 				System.out.println("Livro não encontrado...");
 				decisionControl();
 			} else {
@@ -118,12 +92,11 @@ public class LibraryController extends Utility {
 				listBooks.add(resultSearch);
 				int value = displayControl.displayWithListBooks(listBooks);
 				String strValue = Integer.toString(value);
-				if (isZero(strValue)) {
+				if (Utility.isZero(strValue)) {
 					option = value;
 					decisionControl();
 				} else {
-					generalControlCheckBooksOut(library.getBooks().indexOf(
-							resultSearch));
+					controlCheckBooksOut(resultSearch);
 				}
 
 			}
@@ -134,10 +107,9 @@ public class LibraryController extends Utility {
 		}
 	}
 
-	private void generalControlCheckBooksOut(int index) {
-		Book book = library.getBooks().get(index);
+	private void controlCheckBooksOut(Book book) {
 		if (library.availableBooks().contains(book)) {
-			if (library.checkingBookOut(newCheckBooksOut(user, book))) {
+			if (library.checkingBookOut(book)) {
 				displayControl.successCheckBooksOut();
 			} else {
 				displayControl.errorCheckBooksOut();
@@ -148,7 +120,4 @@ public class LibraryController extends Utility {
 		decisionControl();
 	}
 
-	private CheckBooksOut newCheckBooksOut(User user, Book book) {
-		return new CheckBooksOut(user, book);
-	}
 }

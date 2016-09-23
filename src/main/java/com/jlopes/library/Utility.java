@@ -9,7 +9,7 @@ public abstract class Utility {
 		}
 	}
 
-	protected boolean isDataEmpty(String... params) {
+	public static boolean isDataEmpty(String... params) {
 		for (String value : params) {
 			if (value.equals("")) {
 				return true;
@@ -18,7 +18,7 @@ public abstract class Utility {
 		return false;
 	}
 
-	protected boolean isZero(String value) {
+	protected static boolean isZero(String value) {
 		if (value.equals("0")) {
 			return true;
 		} else {
