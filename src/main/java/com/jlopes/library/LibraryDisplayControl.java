@@ -12,12 +12,9 @@ import com.jlopes.library.domain.Book;
 public class LibraryDisplayControl {
 	Scanner entry;
 	BufferedReader entryLine;
-	String name;
-	String email;
-	String phone;
 
 	public void displayWellCome() {
-		System.out.println("Bem-vindo(a) à sua biBiblioteca!\n");
+		System.out.println("Bem-vindo(a) à sua Biblioteca!\n");
 	}
 
 	public int displayWithMenuOptions() {
@@ -34,7 +31,7 @@ public class LibraryDisplayControl {
 	}
 
 	public String displaySearchBook() {
-		System.out.println("Digite o título do livro que deseja buscar: \n"
+		System.out.println("Digite o título do livro que deseja buscar. \n"
 				+ "Para voltar ao menu digite '0': \n\n");
 
 		entryLine = new BufferedReader(new InputStreamReader(System.in));
@@ -69,9 +66,10 @@ public class LibraryDisplayControl {
 	}
 
 	public void successCheckBooksOut() {
-		System.out.println("Obrigado por utilizar nossos serviços!\n"
-				+ "Registro de retirada de livro realizado com sucesso.\n"
-				+ "Boa leitura!\n");
+		System.out
+				.println("Registro de retirada de livro realizado com sucesso!\n"
+						+ "Obrigado por utilizar nossos serviços.\n"
+						+ "Boa leitura!\n");
 	}
 
 	public void errorCheckBooksOut() {
@@ -81,8 +79,9 @@ public class LibraryDisplayControl {
 	}
 
 	public void successCheckBooksIn() {
-		System.out.println("Obrigado por utilizar nossos serviços!\n"
-				+ "Registro de devolução de livro realizado com sucesso.\n");
+		System.out
+				.println("Registro de devolução de livro realizado com sucesso.\n"
+						+ "Obrigado por utilizar nossos serviços!\n");
 	}
 
 	public void errorCheckBooksIn() {

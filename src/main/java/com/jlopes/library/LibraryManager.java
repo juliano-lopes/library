@@ -33,10 +33,6 @@ public class LibraryManager {
 		this.checkedBooksOut = new ArrayList<Book>();
 	}
 
-	public int quantityBooks() {
-		return books.size();
-	}
-
 	public Book searchedBook(String search) {
 		search = search.toLowerCase();
 		for (Book book : books) {
@@ -48,13 +44,11 @@ public class LibraryManager {
 	}
 
 	public boolean checkingBookIn(Book checkBookOut) {
-
 		if (checkedBooksOut.remove(checkBookOut)) {
 			return true;
 		} else {
 			return false;
 		}
-
 	}
 
 	public boolean checkingBookOut(Book checkBookOut) {
@@ -70,5 +64,4 @@ public class LibraryManager {
 		availableBooks.removeAll(checkedBooksOut);
 		return availableBooks;
 	}
-
 }

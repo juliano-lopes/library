@@ -18,7 +18,7 @@ public class LibraryManagerTest {
 	public void shouldReturnTrueIfQuantityBooksBiggerThanZero() {
 		LibraryService libraryService = new LibraryService();
 		LibraryManager library = new LibraryManager(libraryService);
-		int quantityBooks = library.quantityBooks();
+		int quantityBooks = library.getBooks().size();
 		assertThat((quantityBooks > 0), is(true));
 	}
 
@@ -85,7 +85,7 @@ public class LibraryManagerTest {
 
 		List<Book> availableBooks = library.availableBooks();
 		int quantityAvailableBooks = availableBooks.size();
-		int quantityBooks = library.quantityBooks();
+		int quantityBooks = library.getBooks().size();
 		assertThat(quantityAvailableBooks, is(quantityBooks - 2));
 	}
 

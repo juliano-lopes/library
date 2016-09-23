@@ -31,14 +31,12 @@ public class LibraryController {
 			controlToSearchBook(search);
 			break;
 		case 2:
-
 			controlListBooks(library.getBooks());
 			break;
 		case 3:
 			controlListBooks(library.availableBooks());
 			break;
 		case 4:
-
 			controlBooksToReturn(library.getCheckedBooksOut());
 			break;
 		case 5:
@@ -49,7 +47,6 @@ public class LibraryController {
 	private void controlBooksToReturn(List<Book> list) {
 		int value = displayControl.displayWithListBooks(list);
 		String strValue = Integer.toString(value);
-
 		if (Utility.isZero(strValue)) {
 			option = value;
 			decisionControl();
@@ -65,20 +62,17 @@ public class LibraryController {
 			displayControl.errorCheckBooksIn();
 		}
 		decisionControl();
-
 	}
 
 	private void controlListBooks(List<Book> books) {
 		int value = displayControl.displayWithListBooks(books);
 		String strValue = Integer.toString(value);
 		if (Utility.isZero(strValue)) {
-
 			option = value;
 			decisionControl();
 		} else {
 			controlCheckBooksOut(books.get(value - 1));
 		}
-
 	}
 
 	private void controlToSearchBook(String search) {
@@ -98,12 +92,10 @@ public class LibraryController {
 				} else {
 					controlCheckBooksOut(resultSearch);
 				}
-
 			}
 		} else {
 			option = Integer.parseInt(search);
 			decisionControl();
-
 		}
 	}
 
@@ -119,5 +111,4 @@ public class LibraryController {
 		}
 		decisionControl();
 	}
-
 }

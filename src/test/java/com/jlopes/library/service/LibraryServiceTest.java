@@ -11,10 +11,10 @@ import com.jlopes.library.service.LibraryService;
 
 public class LibraryServiceTest {
 
-@Test
-public void shouldReturnListOfBooks(){
-LibraryService libraryService = new LibraryService();
-	List<Book> books = libraryService.getBooks();
-	assertTrue(books.size()>0);
-}
+	@Test
+	public void shouldReturnListOfBooks() {
+		LibraryService libraryService = new LibraryService();
+		List<Book> books = libraryService.getBooks();
+		assertTrue(books.size() > 0);
+	}
 }

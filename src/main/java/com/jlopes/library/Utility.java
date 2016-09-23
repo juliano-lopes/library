@@ -24,6 +24,5 @@ public abstract class Utility {
 		} else {
 			return false;
 		}
-
 	}
 }
