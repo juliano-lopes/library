@@ -1,6 +1,6 @@
 package com.jlopes.library;
 
-public abstract class Utility {
+public class Utility {
 	protected static boolean isNull(Object obj) {
 		if (obj == null) {
 			return true;
@@ -28,7 +28,7 @@ public abstract class Utility {
 
 	public static boolean isNumber(String value) {
 		for (int index = 0; index < value.length(); index++) {
-			if (Character.isLetter(value.charAt(index))) {
+			if (!Character.isDigit(value.charAt(index))) {
 				return false;
 			}
 		}

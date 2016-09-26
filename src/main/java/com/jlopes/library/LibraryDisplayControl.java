@@ -41,7 +41,6 @@ public class LibraryDisplayControl {
 		}
 	}
 
-	@overload
 	private int displayWithValidNumericInput(List<Book> books) {
 		int option = displayWithValidNumericInput();
 		if (option > books.size()) {
