@@ -10,22 +10,22 @@ import java.util.List;
 import org.junit.Test;
 
 import com.jlopes.library.domain.Book;
-import com.jlopes.library.service.LibraryService;
+import com.jlopes.library.service.BookService;
 
 public class LibraryManagerTest {
 
 	@Test
 	public void shouldReturnTrueIfQuantityBooksBiggerThanZero() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		int quantityBooks = library.getBooks().size();
 		assertThat((quantityBooks > 0), is(true));
 	}
 
 	@Test
 	public void shouldReturnBookAuthorIfBookFound() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		Book book = library.searchedBook("Se Houver Amanhã");
 		String author = book.getAuthor();
 		assertThat(author, is("Sidney Sheldon"));
@@ -33,16 +33,16 @@ public class LibraryManagerTest {
 
 	@Test
 	public void shouldReturnNullBecauseBookTitleNotExists() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		Book book = library.searchedBook("Ordem dos Arqueiros");
 		assertNull(book);
 	}
 
 	@Test
 	public void shouldReturnTrueIfBookCheckedOut() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		boolean result = library.checkingBookOut(searchedBook);
 		assertTrue(result);
@@ -50,8 +50,8 @@ public class LibraryManagerTest {
 
 	@Test
 	public void shouldReturnListWithCheckedBooksOut() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		library.checkingBookOut(searchedBook);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
@@ -62,8 +62,8 @@ public class LibraryManagerTest {
 
 	@Test
 	public void shouldReturnBookTitleFirstOneCheckedOut() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		library.checkingBookOut(searchedBook);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");
@@ -75,8 +75,8 @@ public class LibraryManagerTest {
 
 	@Test
 	public void shouldReturnQuantityAvailableBooks() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 
 		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		library.checkingBookOut(searchedBook);
@@ -91,8 +91,8 @@ public class LibraryManagerTest {
 
 	@Test
 	public void shouldReturnQuantityCheckedBooksOut() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 
 		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		library.checkingBookOut(searchedBook);
@@ -106,8 +106,8 @@ public class LibraryManagerTest {
 
 	@Test
 	public void shouldReturnTrueIfQuantityCheckedBooksOutIsLeastAfterCheckBookIn() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		Book searchedBook = library.searchedBook("Se Houver Amanhã");
 		library.checkingBookOut(searchedBook);
 		searchedBook = library.searchedBook("As Aventuras de Sharpe1");

@@ -85,7 +85,7 @@ public class LibraryController {
 		if (!Utility.isZero(search)) {
 			Book resultSearch = library.searchedBook(search);
 			if (Utility.isNull(resultSearch)) {
-				System.out.println("Livro não encontrado...");
+				displayControl.displayBookNotFound();
 				decisionControl();
 			} else {
 				List<Book> listBooks = new ArrayList<Book>();

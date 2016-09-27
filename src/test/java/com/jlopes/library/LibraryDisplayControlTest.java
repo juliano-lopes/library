@@ -2,13 +2,12 @@ package com.jlopes.library;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.jlopes.library.domain.Book;
 
-import com.jlopes.library.service.LibraryService;
+import com.jlopes.library.service.BookService;
 
 public class LibraryDisplayControlTest {
 	@Test
@@ -28,8 +27,8 @@ public class LibraryDisplayControlTest {
 
 	@Test
 	public void shouldReturnTrueInTheListWithAllTheBooks() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		int option = displayControl.displayWithListBooks(library.getBooks());
 		assertThat(option > 0, is(true));
@@ -37,8 +36,8 @@ public class LibraryDisplayControlTest {
 
 	@Test
 	public void shouldReturnTrueInTheListWithAvailableBooks() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		Book book = library.searchedBook("Se Houver Amanhã");
 		library.checkingBookOut(book);
@@ -49,8 +48,8 @@ public class LibraryDisplayControlTest {
 
 	@Test
 	public void shouldReturnTrueInTheListToReturn() {
-		LibraryService libraryService = new LibraryService();
-		LibraryManager library = new LibraryManager(libraryService);
+		BookService bookService = new BookService();
+		LibraryManager library = new LibraryManager(bookService);
 		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		Book book = library.searchedBook("Se Houver Amanhã");
 		library.checkingBookOut(book);

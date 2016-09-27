@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.jlopes.library.domain.Book;
 import com.jlopes.library.exception.LibraryManagerDataShouldNotBeNullException;
-import com.jlopes.library.service.LibraryService;
+import com.jlopes.library.service.BookService;
 
 public class LibraryManager {
-	private LibraryService libraryService;
+	private BookService bookService;
 	private List<Book> books;
 	private List<Book> checkedBooksOut;
 
@@ -20,16 +20,16 @@ public class LibraryManager {
 		return checkedBooksOut;
 	}
 
-	public LibraryService getLibraryService() {
-		return libraryService;
+	public BookService getLibraryService() {
+		return bookService;
 	}
 
-	public LibraryManager(LibraryService libraryService) {
-		if (Utility.isNull(libraryService.getBooks())) {
+	public LibraryManager(BookService bookService) {
+		if (Utility.isNull(bookService.getBooks())) {
 			throw new LibraryManagerDataShouldNotBeNullException();
 		}
-		this.libraryService = libraryService;
-		this.books = new ArrayList<Book>(libraryService.getBooks());
+		this.bookService = bookService;
+		this.books = new ArrayList<Book>(bookService.getBooks());
 		this.checkedBooksOut = new ArrayList<Book>();
 	}
 

@@ -116,4 +116,9 @@ public class LibraryDisplayControl {
 		System.out.println("Opção inválida...\n");
 	}
 
+	public void displayBookNotFound() {
+		System.out.println("Livro não encontrado...\n"
+				+ "Por favor, digite o título do livro corretamente.\n");
+	}
+
 }

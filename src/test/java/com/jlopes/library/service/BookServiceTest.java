@@ -7,14 +7,14 @@ import java.util.List;
 import org.junit.Test;
 
 import com.jlopes.library.domain.Book;
-import com.jlopes.library.service.LibraryService;
+import com.jlopes.library.service.BookService;
 
-public class LibraryServiceTest {
+public class BookServiceTest {
 
 	@Test
 	public void shouldReturnListOfBooks() {
-		LibraryService libraryService = new LibraryService();
-		List<Book> books = libraryService.getBooks();
+		BookService bookService = new BookService();
+		List<Book> books = bookService.getBooks();
 		assertTrue(books.size() > 0);
 	}
 }

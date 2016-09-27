@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.jlopes.library.domain.Book;
-import com.jlopes.library.service.LibraryService;
+import com.jlopes.library.service.BookService;
 
 public class UtilityTest {
 	@Test
@@ -33,8 +33,8 @@ public class UtilityTest {
 
 	@Test
 	public void shouldReturnFalseIfObjectIsNotNull() {
-		LibraryService libraryService = new LibraryService();
-		List<Book> book = libraryService.getBooks();
+		BookService bookService = new BookService();
+		List<Book> book = bookService.getBooks();
 		assertFalse(Utility.isNull(book));
 	}
 
