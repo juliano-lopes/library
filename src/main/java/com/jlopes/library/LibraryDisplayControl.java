@@ -13,16 +13,14 @@ public class LibraryDisplayControl {
 	BufferedReader entryLine;
 
 	public void displayWellCome() {
-		System.out.println("Bem-vindo(a) à sua Biblioteca!\n");
+		System.out.println("Wellcome  to your Biblioteca!\n");
 	}
 
 	public int displayWithMenuOptions() {
-		System.out.println("" + "O que gostaria de fazer?\n\n"
-				+ "1. - Buscar por um livro;\n"
-				+ "2. - Listar todos os livros;\n"
-				+ "3. - Listar somente os livros disponíveis para retirada;\n"
-				+ "4. - Realizar a devolução de um livro;\n"
-				+ "5. - Sair do sistema...\n");
+		System.out.println("" + "What do you like to do?\n\n"
+				+ "1. - Search a book;\n" + "2. - List all the books;\n"
+				+ "3. - List only available books;\n" + "4. - Return a book;\n"
+				+ "5. - Leave the system...\n");
 		return displayWithValidNumericInput();
 	}
 
@@ -52,8 +50,8 @@ public class LibraryDisplayControl {
 	}
 
 	public String displaySearchBook() {
-		System.out.println("Digite o título do livro que deseja buscar. \n"
-				+ "Para voltar ao menu digite '0': \n\n");
+		System.out.println("Write the book's title you wish to search. \n"
+				+ "To go back to menu, press '0': \n\n");
 		entryLine = new BufferedReader(new InputStreamReader(System.in));
 		String search = "";
 		try {
@@ -66,16 +64,16 @@ public class LibraryDisplayControl {
 
 	public int displayWithListBooks(List<Book> listBooks) {
 		System.out
-				.println("Veja a lista de livros escolhida. \n"
-						+ "Caso queira selecionar alguma das obras exibidas, por favor digite o número correspondente à ela, quando houver. \n"
-						+ "Para voltar ao menu digite '0': \n\n");
+				.println("See the list of choosen books. \n"
+						+ "If you want to select some of these books, please press the correspondent number to them, when there is it. \n"
+						+ "To go back to menu, press '0': \n\n");
 		int arrow = 1;
 		for (Book book : listBooks) {
-			System.out.println("LIVRO " + arrow + "\n" + "Título: "
-					+ book.getTitle() + "\n" + "Autor: " + book.getAuthor()
-					+ "\n" + "Gênero: " + book.getGenrer() + "\n"
-					+ "Tipo de Literatura: " + book.getKindOfLiterature()
-					+ "\n" + "Editora: " + book.getPublisher() + "\n"
+			System.out.println("Book " + arrow + "\n" + "Title: "
+					+ book.getTitle() + "\n" + "Author: " + book.getAuthor()
+					+ "\n" + "Genrer: " + book.getGenrer() + "\n"
+					+ "Kind of literature: " + book.getKindOfLiterature()
+					+ "\n" + "Publisher: " + book.getPublisher() + "\n"
 					+ "====================\n\n");
 			arrow++;
 		}
@@ -84,41 +82,43 @@ public class LibraryDisplayControl {
 
 	public void displaySuccessCheckBooksOut() {
 		System.out
-				.println("Registro de retirada de livro realizado com sucesso!\n"
-						+ "Obrigado por utilizar nossos serviços.\n"
-						+ "Boa leitura!\n");
+				.println("Successful check out!\n" + "Have a nice reading!\n");
+		displayThankMessage();
 	}
 
 	public void displayErrorCheckBooksOut() {
 		System.out
-				.println("Desculpe, não foi possível registrar a retirada deste livro...\n"
-						+ "Por favor escolha outro.\n");
+				.println("Sorry, it was not possible to check out this book...\n"
+						+ "Please, chose another.\n");
 	}
 
 	public void displaySuccessCheckBooksIn() {
-		System.out
-				.println("Registro de devolução de livro realizado com sucesso.\n"
-						+ "Obrigado por utilizar nossos serviços!\n");
+		System.out.println("Successful return.\n");
+		displayThankMessage();
 	}
 
 	public void displayErrorCheckBooksIn() {
 		System.out
-				.println("Desculpe, não foi possível registrar a devolução deste livro...\n");
+				.println("Sorry, it was not possible to return this book...\n");
 	}
 
 	public void displayLeaveSystem() {
-		System.out.println("Obrigado por utilizar nossos serviços!\n"
-				+ "Até breve.\n");
+		displayThankMessage();
+		System.out.println("See you soon!.\n");
 		System.exit(0);
 	}
 
 	public void displayWithInvalidOptionMessage() {
-		System.out.println("Opção inválida...\n");
+		System.out.println("Invalid option...\n");
 	}
 
 	public void displayBookNotFound() {
-		System.out.println("Livro não encontrado...\n"
-				+ "Por favor, digite o título do livro corretamente.\n");
+		System.out.println("Book not found...\n"
+				+ "Please, write the book's title correctly.\n");
+	}
+
+	public void displayThankMessage() {
+		System.out.println("Thank you for utilizing our services!\n");
 	}
 
 }
