@@ -6,13 +6,8 @@ import java.util.List;
 import com.jlopes.library.domain.Book;
 
 public class LibraryController {
-	final LibraryDisplayControl displayControl;
+	private final LibraryDisplayControl displayControl;
 	private final LibraryManager library;
-	private int option;
-
-	public void setOption(int option) {
-		this.option = option;
-	}
 
 	public LibraryController(LibraryDisplayControl displayControl,
 			LibraryManager library) {
@@ -20,32 +15,30 @@ public class LibraryController {
 		this.library = library;
 	}
 
-	public void decisionControl() {
+	public void decisionControl(MenuOptions option) {
 		switch (option) {
-		case 0:
-			option = displayControl.displayWithMenuOptions();
-			decisionControl();
+		case DISPLAY_MENU_OPTIONS:
+			menuOptions();
 			break;
-		case 1:
+		case SEARCH_BOOK:
 			String search = displayControl.displaySearchBook();
 			controlToSearchBook(search);
 			break;
-		case 2:
+		case LIST_ALL_BOOKS:
 			controlListBooks(library.getBooks());
 			break;
-		case 3:
+		case LIST_AVAILABLE_BOOKS:
 			controlListBooks(library.availableBooks());
 			break;
-		case 4:
+		case RETURN_BOOK:
 			controlBooksToReturn(library.getCheckedBooksOut());
 			break;
-		case 5:
+		case LEAVE_SYSTEM:
 			displayControl.displayLeaveSystem();
 			break;
 		default:
 			displayControl.displayWithInvalidOptionMessage();
-			option = 0;
-			decisionControl();
+			menuOptions();
 			break;
 		}
 	}
@@ -54,8 +47,7 @@ public class LibraryController {
 		int value = displayControl.displayWithListBooks(list);
 		String strValue = Integer.toString(value);
 		if (Utility.isZero(strValue)) {
-			option = value;
-			decisionControl();
+			menuOptions();
 		} else {
 			controlCheckBooksIn(list.get(value - 1));
 		}
@@ -67,15 +59,14 @@ public class LibraryController {
 		} else {
 			displayControl.displayErrorCheckBooksIn();
 		}
-		decisionControl();
+		menuOptions();
 	}
 
 	private void controlListBooks(List<Book> books) {
 		int value = displayControl.displayWithListBooks(books);
 		String strValue = Integer.toString(value);
 		if (Utility.isZero(strValue)) {
-			option = value;
-			decisionControl();
+			menuOptions();
 		} else {
 			controlCheckBooksOut(books.get(value - 1));
 		}
@@ -86,22 +77,20 @@ public class LibraryController {
 			Book resultSearch = library.searchedBook(search);
 			if (Utility.isNull(resultSearch)) {
 				displayControl.displayBookNotFound();
-				decisionControl();
+				menuOptions();
 			} else {
 				List<Book> listBooks = new ArrayList<Book>();
 				listBooks.add(resultSearch);
 				int value = displayControl.displayWithListBooks(listBooks);
 				String strValue = Integer.toString(value);
 				if (Utility.isZero(strValue)) {
-					option = value;
-					decisionControl();
+					menuOptions();
 				} else {
 					controlCheckBooksOut(resultSearch);
 				}
 			}
 		} else {
-			option = Integer.parseInt(search);
-			decisionControl();
+			menuOptions();
 		}
 	}
 
@@ -115,6 +104,11 @@ public class LibraryController {
 		} else {
 			displayControl.displayErrorCheckBooksOut();
 		}
-		decisionControl();
+		menuOptions();
+	}
+
+	public void menuOptions() {
+		decisionControl(MenuOptions.option(displayControl
+				.displayWithMenuOptions()));
 	}
 }
