@@ -12,6 +12,10 @@ public class LibraryDisplayControl {
 	Scanner entry;
 	BufferedReader entryLine;
 
+	public LibraryDisplayControl() {
+		displayWellCome();
+	}
+
 	public void displayWellCome() {
 		System.out.println("Wellcome  to your Biblioteca!\n");
 	}

@@ -10,7 +10,6 @@ public class LibraryMain {
 		LibraryManager library = new LibraryManager(bookService);
 		LibraryController controller = new LibraryController(displayControl,
 				library);
-		displayControl.displayWellCome();
 		controller.menuOptions();
 	}
 }
