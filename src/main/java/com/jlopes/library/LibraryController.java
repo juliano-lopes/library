@@ -43,13 +43,13 @@ public class LibraryController {
 		}
 	}
 
-	private void controlBooksToReturn(List<Book> list) {
-		int value = displayControl.displayWithListBooks(list);
+	private void controlBooksToReturn(List<Book> books) {
+		int value = displayControl.displayWithListBooks(books);
 		String strValue = Integer.toString(value);
 		if (Utility.isZero(strValue)) {
 			menuOptions();
 		} else {
-			controlCheckBooksIn(list.get(value - 1));
+			controlCheckBooksIn(books.get(value - 1));
 		}
 	}
 
