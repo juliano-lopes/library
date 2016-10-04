@@ -20,12 +20,15 @@ public class LibraryDisplayControl {
 		System.out.println("Wellcome  to your Biblioteca!\n");
 	}
 
-	public int displayWithMenuOptions() {
-		System.out.println("" + "What do you like to do?\n\n"
-				+ "1. - Search a book;\n" + "2. - List all the books;\n"
-				+ "3. - List only available books;\n" + "4. - Return a book;\n"
-				+ "5. - Leave the system...\n");
-		return displayWithValidNumericInput();
+	public MenuOptions displayWithMenuOptions() {
+		System.out.println("" + "What do you like to do?\n");
+		for (MenuOptions option : MenuOptions.values()) {
+			if (!Utility.isDataEmpty(option.getDescription())) {
+				System.out.println(option.getValue() + ". "
+						+ option.getDescription());
+			}
+		}
+		return MenuOptions.option(displayWithValidNumericInput());
 	}
 
 	private int displayWithValidNumericInput() {

@@ -22,8 +22,8 @@ public class LibraryDisplayControlTest {
 
 	@Test
 	public void shouldReturnMenuOption() {
-		int option = displayControl.displayWithMenuOptions();
-		assertThat(option, is(1));
+		MenuOptions option = displayControl.displayWithMenuOptions();
+		assertThat(option, is(MenuOptions.SEARCH_BOOK));
 	}
 
 	@Test

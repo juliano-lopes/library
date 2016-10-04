@@ -108,7 +108,6 @@ public class LibraryController {
 	}
 
 	public void menuOptions() {
-		decisionControl(MenuOptions.option(displayControl
-				.displayWithMenuOptions()));
+		decisionControl(displayControl.displayWithMenuOptions());
 	}
 }

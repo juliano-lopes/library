@@ -1,12 +1,24 @@
 package com.jlopes.library;
 
 public enum MenuOptions {
-	DISPLAY_MENU_OPTIONS(0), SEARCH_BOOK(1), LIST_ALL_BOOKS(2), LIST_AVAILABLE_BOOKS(
-			3), RETURN_BOOK(4), LEAVE_SYSTEM(5), INVALID_OPTION(-1);
-	private int value;
+	DISPLAY_MENU_OPTIONS(0, ""), SEARCH_BOOK(1, "Search a book"), LIST_ALL_BOOKS(
+			2, "List all the books"), LIST_AVAILABLE_BOOKS(3,
+			"List only available books"), RETURN_BOOK(4, "Return a book"), LEAVE_SYSTEM(
+			5, "Leave the system"), INVALID_OPTION(-1, "");
+	private final int value;
+	private final String description;
 
-	MenuOptions(int value) {
+	MenuOptions(int value, String description) {
 		this.value = value;
+		this.description = description;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	public static MenuOptions option(int option) {
