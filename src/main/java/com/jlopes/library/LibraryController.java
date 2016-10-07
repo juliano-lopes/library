@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jlopes.library.domain.Book;
+import com.jlopes.library.io.Input;
 
 public class LibraryController {
 	private final LibraryDisplayControl displayControl;
@@ -21,8 +22,8 @@ public class LibraryController {
 			menuOptions();
 			break;
 		case SEARCH_BOOK:
-			String search = displayControl.displaySearchBook();
-			controlToSearchBook(search);
+			displayControl.displaySearchBook();
+			controlToSearchBook(Input.entry());
 			break;
 		case LIST_ALL_BOOKS:
 			controlListBooks(library.getBooks());

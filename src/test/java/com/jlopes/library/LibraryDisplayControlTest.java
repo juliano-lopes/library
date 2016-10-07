@@ -27,12 +27,6 @@ public class LibraryDisplayControlTest {
 	}
 
 	@Test
-	public void shouldReturnBookTitleToSearch() {
-		String result = displayControl.displaySearchBook();
-		assertThat(result, is("terra em chamas"));
-	}
-
-	@Test
 	public void shouldReturnTrueInTheListWithAllTheBooks() {
 		int option = displayControl.displayWithListBooks(library.getBooks());
 		assertThat(option > 0, is(true));

@@ -1,16 +1,11 @@
 package com.jlopes.library;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Scanner;
 
 import com.jlopes.library.domain.Book;
+import com.jlopes.library.io.Input;
 
 public class LibraryDisplayControl {
-	Scanner entry;
-	BufferedReader entryLine;
 
 	public LibraryDisplayControl() {
 		displayWellCome();
@@ -21,33 +16,26 @@ public class LibraryDisplayControl {
 	}
 
 	public MenuOptions displayWithMenuOptions() {
-		System.out.println("" + "What do you like to do?\n");
+		System.out.println("What do you like to do?\n");
 		for (MenuOptions option : MenuOptions.values()) {
 			if (!Utility.isDataEmpty(option.getDescription())) {
-				System.out.println(option.getValue() + ". "
-						+ option.getDescription());
+				System.out.println(option.toString() + "\n");
 			}
 		}
-		return MenuOptions.option(displayWithValidNumericInput());
+		return MenuOptions.option(displayWithValidNumericInput(Input.entry()));
 	}
 
-	private int displayWithValidNumericInput() {
-		entry = new Scanner(System.in);
-		String option = entry.nextLine();
-		if (Utility.isDataEmpty(option)) {
+	private int displayWithValidNumericInput(String option) {
+		if ((Utility.isDataEmpty(option)) || (!Utility.isNumber(option))) {
 			displayWithInvalidOptionMessage();
 			return 0;
-		}
-		if (Utility.isNumber(option)) {
-			return Integer.parseInt(option);
 		} else {
-			displayWithInvalidOptionMessage();
-			return 0;
+			return Integer.parseInt(option);
 		}
 	}
 
-	private int displayWithValidNumericInput(List<Book> books) {
-		int option = displayWithValidNumericInput();
+	private int displayWithValidNumericInput(String strOption, List<Book> books) {
+		int option = displayWithValidNumericInput(strOption);
 		if (option > books.size()) {
 			displayWithInvalidOptionMessage();
 			return 0;
@@ -56,17 +44,9 @@ public class LibraryDisplayControl {
 		}
 	}
 
-	public String displaySearchBook() {
+	public void displaySearchBook() {
 		System.out.println("Write the book's title you wish to search. \n"
 				+ "To go back to menu, press '0': \n\n");
-		entryLine = new BufferedReader(new InputStreamReader(System.in));
-		String search = "";
-		try {
-			search = entryLine.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return search.toLowerCase();
 	}
 
 	public int displayWithListBooks(List<Book> listBooks) {
@@ -76,15 +56,11 @@ public class LibraryDisplayControl {
 						+ "To go back to menu, press '0': \n\n");
 		int arrow = 1;
 		for (Book book : listBooks) {
-			System.out.println("Book " + arrow + "\n" + "Title: "
-					+ book.getTitle() + "\n" + "Author: " + book.getAuthor()
-					+ "\n" + "Genrer: " + book.getGenrer() + "\n"
-					+ "Kind of literature: " + book.getKindOfLiterature()
-					+ "\n" + "Publisher: " + book.getPublisher() + "\n"
-					+ "====================\n\n");
+			System.out
+					.println("Book " + arrow + ":\n" + book.toString() + "\n");
 			arrow++;
 		}
-		return displayWithValidNumericInput(listBooks);
+		return displayWithValidNumericInput(Input.entry(), listBooks);
 	}
 
 	public void displaySuccessCheckBooksOut() {

@@ -29,4 +29,8 @@ public enum MenuOptions {
 		}
 		return MenuOptions.INVALID_OPTION;
 	}
+
+	public String toString() {
+		return value + ". " + description;
+	}
 }

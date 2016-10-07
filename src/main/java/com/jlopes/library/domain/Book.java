@@ -49,14 +49,14 @@ public class Book {
 		this.publisher = publisher;
 	}
 
+	public String toString(){
+	return "Title: "
+			+ title + "\n" + "Author: " + author
+			+ "\n" + "Genrer: " + genrer + "\n"
+			+ "Kind of literature: " + kindOfLiterature
+			+ "\n" + "Publisher: " + publisher + "\n";
+}
 	private boolean isDataEmpty(long isbn, String... params) {
-		if (isbn == 0) {
-			return true;
+		return ((isbn == 0) || (Utility.isDataEmpty(params)) );
 		}
-		if (Utility.isDataEmpty(params)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
