@@ -1,55 +1,32 @@
-package com.jlopes.library;
+package com.jlopes.library.io;
 
 import java.util.List;
 
+import com.jlopes.library.MenuOptions;
+import com.jlopes.library.Utility;
 import com.jlopes.library.domain.Book;
-import com.jlopes.library.io.Input;
 
-public class LibraryDisplayControl {
+public class Write {
 
-	public LibraryDisplayControl() {
-		displayWellCome();
-	}
-
-	public void displayWellCome() {
+	public static void wellComeMessage() {
 		System.out.println("Wellcome  to your Biblioteca!\n");
 	}
 
-	public MenuOptions displayWithMenuOptions() {
+	public static void showMenuOptions() {
 		System.out.println("What do you like to do?\n");
 		for (MenuOptions option : MenuOptions.values()) {
 			if (!Utility.isDataEmpty(option.getDescription())) {
 				System.out.println(option.toString() + "\n");
 			}
 		}
-		return MenuOptions.option(displayWithValidNumericInput(Input.entry()));
 	}
 
-	private int displayWithValidNumericInput(String option) {
-		if ((Utility.isDataEmpty(option)) || (!Utility.isNumber(option))) {
-			displayWithInvalidOptionMessage();
-			return 0;
-		} else {
-			return Integer.parseInt(option);
-		}
-	}
-
-	private int displayWithValidNumericInput(String strOption, List<Book> books) {
-		int option = displayWithValidNumericInput(strOption);
-		if (option > books.size()) {
-			displayWithInvalidOptionMessage();
-			return 0;
-		} else {
-			return option;
-		}
-	}
-
-	public void displaySearchBook() {
+	public static void searchBookMessage() {
 		System.out.println("Write the book's title you wish to search. \n"
 				+ "To go back to menu, press '0': \n\n");
 	}
 
-	public int displayWithListBooks(List<Book> listBooks) {
+	public static void showListBooks(List<Book> listBooks) {
 		System.out
 				.println("See the list of choosen books. \n"
 						+ "If you want to select some of these books, please press the correspondent number to them, when there is it. \n"
@@ -60,47 +37,46 @@ public class LibraryDisplayControl {
 					.println("Book " + arrow + ":\n" + book.toString() + "\n");
 			arrow++;
 		}
-		return displayWithValidNumericInput(Input.entry(), listBooks);
 	}
 
-	public void displaySuccessCheckBooksOut() {
+	public static void successCheckBooksOutMessage() {
 		System.out
 				.println("Successful check out!\n" + "Have a nice reading!\n");
-		displayThankMessage();
+		thankMessage();
 	}
 
-	public void displayErrorCheckBooksOut() {
+	public static void errorCheckBooksOutMessage() {
 		System.out
 				.println("Sorry, it was not possible to check out this book...\n"
 						+ "Please, chose another.\n");
 	}
 
-	public void displaySuccessCheckBooksIn() {
+	public static void successCheckBooksInMessage() {
 		System.out.println("Successful return.\n");
-		displayThankMessage();
+		thankMessage();
 	}
 
-	public void displayErrorCheckBooksIn() {
+	public static void errorCheckBooksInMessage() {
 		System.out
 				.println("Sorry, it was not possible to return this book...\n");
 	}
 
-	public void displayLeaveSystem() {
-		displayThankMessage();
+	public static void leaveSystemMessage() {
+		thankMessage();
 		System.out.println("See you soon!.\n");
 		System.exit(0);
 	}
 
-	public void displayWithInvalidOptionMessage() {
+	public static void invalidOptionMessage() {
 		System.out.println("Invalid option...\n");
 	}
 
-	public void displayBookNotFound() {
+	public static void bookNotFoundMessage() {
 		System.out.println("Book not found...\n"
 				+ "Please, write the book's title correctly.\n");
 	}
 
-	public void displayThankMessage() {
+	public static void thankMessage() {
 		System.out.println("Thank you for utilizing our services!\n");
 	}
 

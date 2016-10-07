@@ -5,11 +5,9 @@ import com.jlopes.library.service.BookService;
 public class LibraryMain {
 
 	public static void main(String[] args) {
-		LibraryDisplayControl displayControl = new LibraryDisplayControl();
 		BookService bookService = new BookService();
 		LibraryManager library = new LibraryManager(bookService);
-		LibraryController controller = new LibraryController(displayControl,
-				library);
+		LibraryController controller = new LibraryController(library);
 		controller.menuOptions();
 	}
 }

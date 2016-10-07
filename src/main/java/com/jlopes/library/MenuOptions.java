@@ -4,7 +4,7 @@ public enum MenuOptions {
 	DISPLAY_MENU_OPTIONS(0, ""), SEARCH_BOOK(1, "Search a book"), LIST_ALL_BOOKS(
 			2, "List all the books"), LIST_AVAILABLE_BOOKS(3,
 			"List only available books"), RETURN_BOOK(4, "Return a book"), LEAVE_SYSTEM(
-			5, "Leave the system"), INVALID_OPTION(-1, "");
+			5, "Leave the system");
 	private final int value;
 	private final String description;
 
@@ -27,7 +27,7 @@ public enum MenuOptions {
 				return menuOption;
 			}
 		}
-		return MenuOptions.INVALID_OPTION;
+		return MenuOptions.DISPLAY_MENU_OPTIONS;
 	}
 
 	public String toString() {
