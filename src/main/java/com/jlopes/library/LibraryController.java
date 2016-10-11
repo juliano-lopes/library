@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jlopes.library.domain.Book;
-import com.jlopes.library.io.Read;
-import com.jlopes.library.io.Write;
+import com.jlopes.library.io.Reader;
+import com.jlopes.library.io.Writer;
 
 public class LibraryController {
 	private final LibraryManager library;
 
 	public LibraryController(LibraryManager library) {
 		this.library = library;
-		Write.wellComeMessage();
+		Writer.wellComeMessage();
 	}
 
 	public void decisionControl(MenuOptions option) {
@@ -21,33 +21,33 @@ public class LibraryController {
 			menuOptions();
 			break;
 		case SEARCH_BOOK:
-			Write.searchBookMessage();
-			controlToSearchBook(Read.entry());
+			Writer.searchBookMessage();
+			controlToSearchBook(Reader.entry());
 			break;
 		case LIST_ALL_BOOKS:
-			Write.showListBooks(library.getBooks());
-			controlListBooks(Read.validNumericInput(Read
-					.parseToValidNumber(Read.entry()), library.getBooks()
+			Writer.showListBooks(library.getBooks());
+			controlListBooks(Reader.validNumericInput(Reader
+					.parseToValidNumber(Reader.entry()), library.getBooks()
 					.size()), library.getBooks());
 			break;
 		case LIST_AVAILABLE_BOOKS:
-			Write.showListBooks(library.availableBooks());
-			controlListBooks(Read.validNumericInput(Read
-					.parseToValidNumber(Read.entry()), library.availableBooks()
+			Writer.showListBooks(library.availableBooks());
+			controlListBooks(Reader.validNumericInput(Reader
+					.parseToValidNumber(Reader.entry()), library.availableBooks()
 					.size()), library.availableBooks());
 
 			break;
 		case RETURN_BOOK:
-			Write.showListBooks(library.getCheckedBooksOut());
-			controlBooksToReturn(Read.validNumericInput(Read
-					.parseToValidNumber(Read.entry()), library
+			Writer.showListBooks(library.getCheckedBooksOut());
+			controlBooksToReturn(Reader.validNumericInput(Reader
+					.parseToValidNumber(Reader.entry()), library
 					.getCheckedBooksOut().size()), library.getCheckedBooksOut());
 			break;
 		case LEAVE_SYSTEM:
-			Write.leaveSystemMessage();
+			Writer.leaveSystemMessage();
 			break;
 		default:
-			Write.invalidOptionMessage();
+			Writer.invalidOptionMessage();
 			menuOptions();
 			break;
 		}
@@ -64,9 +64,9 @@ public class LibraryController {
 
 	private void controlCheckBooksIn(Book book) {
 		if (library.checkingBookIn(book)) {
-			Write.successCheckBooksInMessage();
+			Writer.successCheckBooksInMessage();
 		} else {
-			Write.errorCheckBooksInMessage();
+			Writer.errorCheckBooksInMessage();
 		}
 		menuOptions();
 	}
@@ -84,15 +84,15 @@ public class LibraryController {
 		if (!Utility.isZero(search)) {
 			Book resultSearch = library.searchedBook(search);
 			if (Utility.isNull(resultSearch)) {
-				Write.bookNotFoundMessage();
+				Writer.bookNotFoundMessage();
 				menuOptions();
 			} else {
 				List<Book> listBooks = new ArrayList<Book>();
 				listBooks.add(resultSearch);
-				Write.showListBooks(listBooks);
+				Writer.showListBooks(listBooks);
 				String strValue = Integer
-						.toString(Read.validNumericInput(
-								Read.parseToValidNumber(Read.entry()),
+						.toString(Reader.validNumericInput(
+								Reader.parseToValidNumber(Reader.entry()),
 								listBooks.size()));
 				if (Utility.isZero(strValue)) {
 					menuOptions();
@@ -108,20 +108,20 @@ public class LibraryController {
 	private void controlCheckBooksOut(Book book) {
 		if (library.availableBooks().contains(book)) {
 			if (library.checkingBookOut(book)) {
-				Write.successCheckBooksOutMessage();
+				Writer.successCheckBooksOutMessage();
 			} else {
-				Write.errorCheckBooksOutMessage();
+				Writer.errorCheckBooksOutMessage();
 			}
 		} else {
-			Write.errorCheckBooksOutMessage();
+			Writer.errorCheckBooksOutMessage();
 		}
 		menuOptions();
 	}
 
 	public void menuOptions() {
-		Write.showMenuOptions();
-		decisionControl(MenuOptions.option(Read.validNumericInput(
-				Read.parseToValidNumber(Read.entry()),
+		Writer.showMenuOptions();
+		decisionControl(MenuOptions.option(Reader.validNumericInput(
+				Reader.parseToValidNumber(Reader.entry()),
 				MenuOptions.values().length)));
 	}
 }

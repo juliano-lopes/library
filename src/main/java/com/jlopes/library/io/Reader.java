@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import com.jlopes.library.Utility;
 
-public class Read {
+public class Reader {
 
 	private static Scanner scanner;
 
@@ -15,7 +15,7 @@ public class Read {
 
 	public static int parseToValidNumber(String value) {
 		if ((Utility.isDataEmpty(value)) || (!Utility.isNumber(value))) {
-			Write.invalidOptionMessage();
+			Writer.invalidOptionMessage();
 			return 0;
 		} else {
 			return Integer.parseInt(value);
@@ -24,7 +24,7 @@ public class Read {
 
 	public static int validNumericInput(int value, int maxValue) {
 		if (value > maxValue) {
-			Write.invalidOptionMessage();
+			Writer.invalidOptionMessage();
 			return 0;
 		} else {
 			return value;

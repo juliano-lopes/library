@@ -6,7 +6,7 @@ import com.jlopes.library.MenuOptions;
 import com.jlopes.library.Utility;
 import com.jlopes.library.domain.Book;
 
-public class Write {
+public class Writer {
 
 	public static void wellComeMessage() {
 		System.out.println("Wellcome  to your Biblioteca!\n");
