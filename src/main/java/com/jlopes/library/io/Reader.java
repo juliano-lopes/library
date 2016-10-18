@@ -6,25 +6,26 @@ import com.jlopes.library.Utility;
 
 public class Reader {
 
-	private static Scanner scanner;
+	private final Scanner scanner;
 
-	public static String entry() {
-		scanner = new Scanner(System.in);
+	public Reader(Scanner scanner) {
+		this.scanner = scanner;
+	}
+
+	public String entry() {
 		return scanner.nextLine();
 	}
 
-	public static int parseToValidNumber(String value) {
+	public int parseToValidNumber(String value) {
 		if ((Utility.isDataEmpty(value)) || (!Utility.isNumber(value))) {
-			Writer.invalidOptionMessage();
 			return 0;
 		} else {
 			return Integer.parseInt(value);
 		}
 	}
 
-	public static int validNumericInput(int value, int maxValue) {
+	public int validNumericInput(int value, int maxValue) {
 		if (value > maxValue) {
-			Writer.invalidOptionMessage();
 			return 0;
 		} else {
 			return value;

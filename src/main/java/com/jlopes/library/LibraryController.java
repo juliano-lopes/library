@@ -9,10 +9,15 @@ import com.jlopes.library.io.Writer;
 
 public class LibraryController {
 	private final LibraryManager library;
+	private final Writer writer;
+	private final Reader reader;
 
-	public LibraryController(LibraryManager library) {
+	public LibraryController(LibraryManager library, Writer writer,
+			Reader reader) {
 		this.library = library;
-		Writer.wellComeMessage();
+		this.writer = writer;
+		this.reader = reader;
+		writer.wellComeMessage();
 	}
 
 	public void decisionControl(MenuOptions option) {
@@ -21,33 +26,33 @@ public class LibraryController {
 			menuOptions();
 			break;
 		case SEARCH_BOOK:
-			Writer.searchBookMessage();
-			controlToSearchBook(Reader.entry());
+			writer.searchBookMessage();
+			controlToSearchBook(reader.entry());
 			break;
 		case LIST_ALL_BOOKS:
-			Writer.showListBooks(library.getBooks());
-			controlListBooks(Reader.validNumericInput(Reader
-					.parseToValidNumber(Reader.entry()), library.getBooks()
+			writer.showListBooks(library.getBooks());
+			controlListBooks(reader.validNumericInput(reader
+					.parseToValidNumber(reader.entry()), library.getBooks()
 					.size()), library.getBooks());
 			break;
 		case LIST_AVAILABLE_BOOKS:
-			Writer.showListBooks(library.availableBooks());
-			controlListBooks(Reader.validNumericInput(Reader
-					.parseToValidNumber(Reader.entry()), library.availableBooks()
-					.size()), library.availableBooks());
+			writer.showListBooks(library.availableBooks());
+			controlListBooks(reader.validNumericInput(reader
+					.parseToValidNumber(reader.entry()), library
+					.availableBooks().size()), library.availableBooks());
 
 			break;
 		case RETURN_BOOK:
-			Writer.showListBooks(library.getCheckedBooksOut());
-			controlBooksToReturn(Reader.validNumericInput(Reader
-					.parseToValidNumber(Reader.entry()), library
+			writer.showListBooks(library.getCheckedBooksOut());
+			controlBooksToReturn(reader.validNumericInput(reader
+					.parseToValidNumber(reader.entry()), library
 					.getCheckedBooksOut().size()), library.getCheckedBooksOut());
 			break;
 		case LEAVE_SYSTEM:
-			Writer.leaveSystemMessage();
+			writer.leaveSystemMessage();
 			break;
 		default:
-			Writer.invalidOptionMessage();
+			writer.invalidOptionMessage();
 			menuOptions();
 			break;
 		}
@@ -64,9 +69,9 @@ public class LibraryController {
 
 	private void controlCheckBooksIn(Book book) {
 		if (library.checkingBookIn(book)) {
-			Writer.successCheckBooksInMessage();
+			writer.successCheckBooksInMessage();
 		} else {
-			Writer.errorCheckBooksInMessage();
+			writer.errorCheckBooksInMessage();
 		}
 		menuOptions();
 	}
@@ -84,16 +89,15 @@ public class LibraryController {
 		if (!Utility.isZero(search)) {
 			Book resultSearch = library.searchedBook(search);
 			if (Utility.isNull(resultSearch)) {
-				Writer.bookNotFoundMessage();
+				writer.bookNotFoundMessage();
 				menuOptions();
 			} else {
 				List<Book> listBooks = new ArrayList<Book>();
 				listBooks.add(resultSearch);
-				Writer.showListBooks(listBooks);
-				String strValue = Integer
-						.toString(Reader.validNumericInput(
-								Reader.parseToValidNumber(Reader.entry()),
-								listBooks.size()));
+				writer.showListBooks(listBooks);
+				String strValue = Integer.toString(reader.validNumericInput(
+						reader.parseToValidNumber(reader.entry()),
+						listBooks.size()));
 				if (Utility.isZero(strValue)) {
 					menuOptions();
 				} else {
@@ -108,20 +112,20 @@ public class LibraryController {
 	private void controlCheckBooksOut(Book book) {
 		if (library.availableBooks().contains(book)) {
 			if (library.checkingBookOut(book)) {
-				Writer.successCheckBooksOutMessage();
+				writer.successCheckBooksOutMessage();
 			} else {
-				Writer.errorCheckBooksOutMessage();
+				writer.errorCheckBooksOutMessage();
 			}
 		} else {
-			Writer.errorCheckBooksOutMessage();
+			writer.errorCheckBooksOutMessage();
 		}
 		menuOptions();
 	}
 
 	public void menuOptions() {
-		Writer.showMenuOptions();
-		decisionControl(MenuOptions.option(Reader.validNumericInput(
-				Reader.parseToValidNumber(Reader.entry()),
+		writer.showMenuOptions();
+		decisionControl(MenuOptions.option(reader.validNumericInput(
+				reader.parseToValidNumber(reader.entry()),
 				MenuOptions.values().length)));
 	}
 }
