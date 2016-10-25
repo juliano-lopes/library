@@ -2,8 +2,6 @@ package com.jlopes.library.io;
 
 import java.util.Scanner;
 
-import com.jlopes.library.Utility;
-
 public class Reader {
 
 	private final Scanner scanner;
@@ -17,10 +15,10 @@ public class Reader {
 	}
 
 	public int parseToValidNumber(String value) {
-		if ((Utility.isDataEmpty(value)) || (!Utility.isNumber(value))) {
-			return 0;
-		} else {
+		try {
 			return Integer.parseInt(value);
+		} catch (Exception e) {
+			return 0;
 		}
 	}
 
