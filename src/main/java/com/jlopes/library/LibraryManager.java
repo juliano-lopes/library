@@ -25,7 +25,7 @@ public class LibraryManager {
 	}
 
 	public LibraryManager(BookService bookService) {
-		if (Utility.isNull(bookService.getBooks())) {
+		if (bookService == null) {
 			throw new LibraryManagerDataShouldNotBeNullException();
 		}
 		this.bookService = bookService;

@@ -1,6 +1,5 @@
 package com.jlopes.library.domain;
 
-import com.jlopes.library.Utility;
 import com.jlopes.library.exception.BookDataShouldNotBeEmptyException;
 
 public class Book {
@@ -49,14 +48,18 @@ public class Book {
 		this.publisher = publisher;
 	}
 
-	public String toString(){
-	return "Title: "
-			+ title + "\n" + "Author: " + author
-			+ "\n" + "Genrer: " + genrer + "\n"
-			+ "Kind of literature: " + kindOfLiterature
-			+ "\n" + "Publisher: " + publisher + "\n";
-}
+	public String toString() {
+		return "Title: " + title + "\n" + "Author: " + author + "\n"
+				+ "Genrer: " + genrer + "\n" + "Kind of literature: "
+				+ kindOfLiterature + "\n" + "Publisher: " + publisher + "\n";
+	}
+
 	private boolean isDataEmpty(long isbn, String... params) {
-		return ((isbn == 0) || (Utility.isDataEmpty(params)) );
+		for (String value : params) {
+			if ((value.equals("")) || (isbn == 0)) {
+				return true;
+			}
 		}
+		return false;
+	}
 }

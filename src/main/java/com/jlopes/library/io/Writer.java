@@ -3,7 +3,7 @@ package com.jlopes.library.io;
 import java.util.List;
 
 import com.jlopes.library.MenuOptions;
-import com.jlopes.library.Utility;
+
 import com.jlopes.library.domain.Book;
 
 public class Writer {
@@ -15,7 +15,7 @@ public class Writer {
 	public void showMenuOptions() {
 		System.out.println("What do you like to do?\n");
 		for (MenuOptions option : MenuOptions.values()) {
-			if (!Utility.isDataEmpty(option.getDescription())) {
+			if (!option.getDescription().equals("")) {
 				System.out.println(option.toString() + "\n");
 			}
 		}

@@ -59,8 +59,7 @@ public class LibraryController {
 	}
 
 	private void controlBooksToReturn(int value, List<Book> books) {
-		String strValue = Integer.toString(value);
-		if (Utility.isZero(strValue)) {
+		if (value == 0) {
 			menuOptions();
 		} else {
 			controlCheckBooksIn(books.get(value - 1));
@@ -77,8 +76,7 @@ public class LibraryController {
 	}
 
 	private void controlListBooks(int value, List<Book> books) {
-		String strValue = Integer.toString(value);
-		if (Utility.isZero(strValue)) {
+		if (value == 0) {
 			menuOptions();
 		} else {
 			controlCheckBooksOut(books.get(value - 1));
@@ -86,19 +84,19 @@ public class LibraryController {
 	}
 
 	private void controlToSearchBook(String search) {
-		if (!Utility.isZero(search)) {
+		if (!search.equals("0")) {
 			Book resultSearch = library.searchedBook(search);
-			if (Utility.isNull(resultSearch)) {
+			if (resultSearch == null) {
 				writer.bookNotFoundMessage();
 				menuOptions();
 			} else {
 				List<Book> listBooks = new ArrayList<Book>();
 				listBooks.add(resultSearch);
 				writer.showListBooks(listBooks);
-				String strValue = Integer.toString(reader.validNumericInput(
+				int value = reader.validNumericInput(
 						reader.parseToValidNumber(reader.entry()),
-						listBooks.size()));
-				if (Utility.isZero(strValue)) {
+						listBooks.size());
+				if (value == 0) {
 					menuOptions();
 				} else {
 					controlCheckBooksOut(resultSearch);
