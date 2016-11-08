@@ -11,13 +11,15 @@ public class LibraryController {
 	private final LibraryManager library;
 	private final Writer writer;
 	private final Reader reader;
+	private final MessageToUser message;
 
 	public LibraryController(LibraryManager library, Writer writer,
-			Reader reader) {
+			Reader reader, MessageToUser message) {
 		this.library = library;
 		this.writer = writer;
 		this.reader = reader;
-		writer.wellComeMessage();
+		this.message = message;
+		writer.show(message.wellComeMessage());
 	}
 
 	public void decisionControl(MenuOptions option) {
@@ -26,33 +28,35 @@ public class LibraryController {
 			menuOptions();
 			break;
 		case SEARCH_BOOK:
-			writer.searchBookMessage();
+			writer.show(message.searchBookMessage());
 			controlToSearchBook(reader.entry());
 			break;
 		case LIST_ALL_BOOKS:
-			writer.showListBooks(library.getBooks());
+			writer.show(message.showListBooks(library.getBooks()));
 			controlListBooks(reader.validNumericInput(reader
 					.parseToValidNumber(reader.entry()), library.getBooks()
 					.size()), library.getBooks());
 			break;
 		case LIST_AVAILABLE_BOOKS:
-			writer.showListBooks(library.availableBooks());
+			writer.show(message.showListBooks(library.availableBooks()));
 			controlListBooks(reader.validNumericInput(reader
 					.parseToValidNumber(reader.entry()), library
 					.availableBooks().size()), library.availableBooks());
 
 			break;
 		case RETURN_BOOK:
-			writer.showListBooks(library.getCheckedBooksOut());
+			writer.show(message.showListBooks(library.getCheckedBooksOut()));
 			controlBooksToReturn(reader.validNumericInput(reader
 					.parseToValidNumber(reader.entry()), library
 					.getCheckedBooksOut().size()), library.getCheckedBooksOut());
 			break;
 		case LEAVE_SYSTEM:
-			writer.leaveSystemMessage();
+			writer.show(message.thankMessage());
+			writer.show(message.leaveSystemMessage());
+			System.exit(0);
 			break;
 		default:
-			writer.invalidOptionMessage();
+			writer.show(message.invalidOptionMessage());
 			menuOptions();
 			break;
 		}
@@ -68,9 +72,9 @@ public class LibraryController {
 
 	private void controlCheckBooksIn(Book book) {
 		if (library.checkingBookIn(book)) {
-			writer.successCheckBooksInMessage();
+			writer.show(message.successCheckBooksInMessage());
 		} else {
-			writer.errorCheckBooksInMessage();
+			writer.show(message.errorCheckBooksInMessage());
 		}
 		menuOptions();
 	}
@@ -87,12 +91,12 @@ public class LibraryController {
 		if (!search.equals("0")) {
 			Book resultSearch = library.searchedBook(search);
 			if (resultSearch == null) {
-				writer.bookNotFoundMessage();
+				writer.show(message.bookNotFoundMessage());
 				menuOptions();
 			} else {
 				List<Book> listBooks = new ArrayList<Book>();
 				listBooks.add(resultSearch);
-				writer.showListBooks(listBooks);
+				writer.show(message.showListBooks(listBooks));
 				int value = reader.validNumericInput(
 						reader.parseToValidNumber(reader.entry()),
 						listBooks.size());
@@ -110,18 +114,18 @@ public class LibraryController {
 	private void controlCheckBooksOut(Book book) {
 		if (library.availableBooks().contains(book)) {
 			if (library.checkingBookOut(book)) {
-				writer.successCheckBooksOutMessage();
+				writer.show(message.successCheckBooksOutMessage());
 			} else {
-				writer.errorCheckBooksOutMessage();
+				writer.show(message.errorCheckBooksOutMessage());
 			}
 		} else {
-			writer.errorCheckBooksOutMessage();
+			writer.show(message.errorCheckBooksOutMessage());
 		}
 		menuOptions();
 	}
 
 	public void menuOptions() {
-		writer.showMenuOptions();
+		writer.show(message.showMenuOptions());
 		decisionControl(MenuOptions.option(reader.validNumericInput(
 				reader.parseToValidNumber(reader.entry()),
 				MenuOptions.values().length)));

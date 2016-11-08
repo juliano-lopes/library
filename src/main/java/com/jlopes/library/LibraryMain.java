@@ -11,7 +11,7 @@ public class LibraryMain {
 	public static void main(String[] args) {
 		LibraryController controller = new LibraryController(
 				new LibraryManager(new BookService()), new Writer(),
-				new Reader(new Scanner(System.in)));
+				new Reader(new Scanner(System.in)), new MessageToUser());
 		controller.menuOptions();
 	}
 }
