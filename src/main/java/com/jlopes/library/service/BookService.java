@@ -6,6 +6,10 @@ import java.util.List;
 import com.jlopes.library.domain.Book;
 
 public class BookService {
+	public Book bookNotExists() {
+		return new Book(0, "", "", "", "", "");
+	}
+
 	public List<Book> getBooks() {
 		List<Book> books = Arrays.asList(
 				new Book(1, "Se Houver Amanhã", "Sidney Sheldon", "Romance",

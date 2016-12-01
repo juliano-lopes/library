@@ -40,7 +40,7 @@ public class LibraryManager {
 				return book;
 			}
 		}
-		return null;
+		return bookService.bookNotExists();
 	}
 
 	public boolean checkingBookIn(Book checkBookOut) {
