@@ -23,4 +23,8 @@ public class BookController {
 		return library.getBooks();
 	}
 
+	@RequestMapping(value = "/book/available", method = RequestMethod.GET)
+	public List<Book> getAvailable() {
+		return library.availableBooks();
+	}
 }
