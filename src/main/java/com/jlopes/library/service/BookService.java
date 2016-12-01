@@ -7,7 +7,8 @@ import com.jlopes.library.domain.Book;
 
 public class BookService {
 	public Book bookNotExists() {
-		return new Book(0, "", "", "", "", "");
+		return new Book(404, "Not Exists", "Not Exists", "Not Exists",
+				"Not Exists", "Not Exists");
 	}
 
 	public List<Book> getBooks() {
