@@ -3,10 +3,14 @@ package com.jlopes.library;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.jlopes.library.domain.Book;
 import com.jlopes.library.exception.LibraryManagerDataShouldNotBeNullException;
 import com.jlopes.library.service.BookService;
 
+@Component
 public class LibraryManager {
 	private BookService bookService;
 	private List<Book> books;
@@ -24,6 +28,7 @@ public class LibraryManager {
 		return bookService;
 	}
 
+	@Autowired
 	public LibraryManager(BookService bookService) {
 		if (bookService == null) {
 			throw new LibraryManagerDataShouldNotBeNullException();

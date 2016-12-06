@@ -3,8 +3,11 @@ package com.jlopes.library.service;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.jlopes.library.domain.Book;
 
+@Component
 public class BookService {
 	public Book bookNotExists() {
 		return new Book(404, "Not Exists", "Not Exists", "Not Exists",
