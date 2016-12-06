@@ -55,4 +55,14 @@ public class BookController {
 		return library.availableBooks();
 	}
 
+	@RequestMapping(value = "/book/delete/{isbn}", method = RequestMethod.DELETE)
+	public String delete(@PathVariable long isbn) {
+		if (library.deleteBook(isbn)) {
+			return "Book deleted";
+		} else {
+			return "Book not deleted";
+		}
+
+	}
+
 }

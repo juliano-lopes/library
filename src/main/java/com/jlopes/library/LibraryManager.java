@@ -74,4 +74,10 @@ public class LibraryManager {
 		return availableBooks;
 	}
 
+	public boolean deleteBook(long isbn) {
+		List<Book> bookToBeDeleted = new ArrayList<Book>();
+		bookToBeDeleted.add(getBookByIsbn(isbn));
+		return (books.removeAll(bookToBeDeleted));
+	}
+
 }
