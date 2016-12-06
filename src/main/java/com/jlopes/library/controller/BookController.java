@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jlopes.library.LibraryManager;
 import com.jlopes.library.domain.Book;
+import com.jlopes.library.exception.BookNotFoundException;
 import com.jlopes.library.service.BookService;
 
 @RestController
@@ -19,9 +20,22 @@ public class BookController {
 		library = new LibraryManager(new BookService());
 	}
 
+	@RequestMapping(value = "/book/{isbn}", method = RequestMethod.GET)
+	public Book getBook(@PathVariable long isbn) {
+		Book book = library.getBookByIsbn(isbn);
+		if (book == null) {
+			throw new BookNotFoundException();
+		}
+		return book;
+	}
+
 	@RequestMapping(value = "/book/search/{name}", method = RequestMethod.GET)
 	public Book getSearchedBook(@PathVariable String name) {
-		return library.searchedBook(name);
+		Book book = library.searchedBook(name);
+		if (book == null) {
+			throw new BookNotFoundException();
+		}
+		return book;
 	}
 
 	@RequestMapping(value = "/book/all", method = RequestMethod.GET)
@@ -33,4 +47,10 @@ public class BookController {
 	public List<Book> getAvailable() {
 		return library.availableBooks();
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	public String delete() {
+		return "Deletado";
+	}
+
 }

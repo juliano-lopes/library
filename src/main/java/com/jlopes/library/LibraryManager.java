@@ -40,7 +40,16 @@ public class LibraryManager {
 				return book;
 			}
 		}
-		return bookService.bookNotExists();
+		return null;
+	}
+
+	public Book getBookByIsbn(long isbn) {
+		for (Book book : books) {
+			if (book.getIsbn() == isbn) {
+				return book;
+			}
+		}
+		return null;
 	}
 
 	public boolean checkingBookIn(Book checkBookOut) {
