@@ -2,9 +2,11 @@ package com.jlopes.library.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jlopes.library.LibraryManager;
@@ -29,6 +31,11 @@ public class BookController {
 		return book;
 	}
 
+	@ExceptionHandler(BookNotFoundException.class)
+	public String bookNotFound() {
+		return "The book you are looking for was not found...";
+	}
+
 	@RequestMapping(value = "/book/search/{name}", method = RequestMethod.GET)
 	public Book getSearchedBook(@PathVariable String name) {
 		Book book = library.searchedBook(name);
@@ -46,11 +53,6 @@ public class BookController {
 	@RequestMapping(value = "/book/available", method = RequestMethod.GET)
 	public List<Book> getAvailable() {
 		return library.availableBooks();
-	}
-
-	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-	public String delete() {
-		return "Deletado";
 	}
 
 }

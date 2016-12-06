@@ -73,4 +73,5 @@ public class LibraryManager {
 		availableBooks.removeAll(checkedBooksOut);
 		return availableBooks;
 	}
+
 }
