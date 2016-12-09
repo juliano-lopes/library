@@ -52,7 +52,7 @@ public class BookController {
 
 			return library.availableBooks();
 		}
-		return library.getCheckedBooksOut();
+		return library.getUnavailableBooks();
 
 	}
 

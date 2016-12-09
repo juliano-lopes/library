@@ -14,14 +14,14 @@ import com.jlopes.library.service.BookService;
 public class LibraryManager {
 	private BookService bookService;
 	private List<Book> books;
-	private List<Book> checkedBooksOut;
+	private List<Book> unavailableBooks;
 
 	public List<Book> getBooks() {
 		return books;
 	}
 
-	public List<Book> getCheckedBooksOut() {
-		return checkedBooksOut;
+	public List<Book> getUnavailableBooks() {
+		return unavailableBooks;
 	}
 
 	public BookService getLibraryService() {
@@ -35,7 +35,7 @@ public class LibraryManager {
 		}
 		this.bookService = bookService;
 		this.books = new ArrayList<Book>(bookService.getBooks());
-		this.checkedBooksOut = new ArrayList<Book>();
+		this.unavailableBooks = new ArrayList<Book>();
 	}
 
 	public Book searchedBook(String search) {
@@ -57,32 +57,25 @@ public class LibraryManager {
 		return null;
 	}
 
-	public boolean checkingBookIn(Book checkBookOut) {
-		if (checkedBooksOut.remove(checkBookOut)) {
-			return true;
-		} else {
-			return false;
+	public boolean returningBook(Book book) {
+		if (unavailableBooks.contains(book)) {
+			return (unavailableBooks.remove(book));
 		}
+		return false;
 	}
 
-	public boolean checkingBookOut(Book checkBookOut) {
-		if (checkedBooksOut.add(checkBookOut)) {
-			return true;
-		} else {
-			return false;
-		}
+	public boolean takingBook(Book book) {
+		return (unavailableBooks.add(book));
 	}
 
 	public List<Book> availableBooks() {
 		List<Book> availableBooks = new ArrayList<Book>(books);
-		availableBooks.removeAll(checkedBooksOut);
+		availableBooks.removeAll(unavailableBooks);
 		return availableBooks;
 	}
 
 	public boolean deleteBook(long isbn) {
-		List<Book> bookToBeDeleted = new ArrayList<Book>();
-		bookToBeDeleted.add(getBookByIsbn(isbn));
-		return (books.removeAll(bookToBeDeleted));
+		return (books.remove(getBookByIsbn(isbn)));
 	}
 
 }
