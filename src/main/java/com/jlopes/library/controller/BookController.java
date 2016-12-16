@@ -66,4 +66,15 @@ public class BookController {
 
 	}
 
+	@RequestMapping(value = "/books", method = RequestMethod.POST)
+	public boolean newBook(@RequestParam("isbn") long isbn,
+			@RequestParam("title") String title,
+			@RequestParam("author") String author,
+			@RequestParam("genrer") String genrer,
+			@RequestParam("kindOfLiterature") String kindOfLiterature,
+			@RequestParam("publisher") String publisher) {
+		return (library.addNewBook(isbn, title, author, genrer,
+				kindOfLiterature, publisher));
+	}
+
 }

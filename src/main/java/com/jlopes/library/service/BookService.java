@@ -29,4 +29,10 @@ public class BookService {
 		return books;
 	}
 
+	public Book newBook(long isbn, String title, String author, String genrer,
+			String kindOfLiterature, String publisher) {
+		return new Book(isbn, title, author, genrer, kindOfLiterature,
+				publisher);
+	}
+
 }

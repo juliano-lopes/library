@@ -78,4 +78,10 @@ public class LibraryManager {
 		return (books.remove(getBookByIsbn(isbn)));
 	}
 
+	public boolean addNewBook(long isbn, String title, String author,
+			String genrer, String kindOfLiterature, String publisher) {
+		return (books.add(bookService.newBook(isbn, title, author, genrer,
+				kindOfLiterature, publisher)));
+	}
+
 }
