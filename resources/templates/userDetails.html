@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Accessible Way</title>
+
+<link rel="stylesheet"
+	href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+	<h1>Your Accessible Way!</h1>
+
+	<h2>User Details</h2>
+	<p>
+		<a id="l1" href="/signup">Sign-up</a>
+	</p>
+	<p>
+		<a href="/listUser">Listing User</a>
+	</p>
+
+	<table>
+		<tr>
+			<th colspan="2">Details to <span th:text="${user.name}"></span>
+				user
+			</th>
+		</tr>
+		<tr>
+
+			<td>Name</td>
+			<td>E-mail</td>
+		</tr>
+		<tr>
+
+			<td th:text="${user.name}"></td>
+			<td th:text="${user.email}"></td>
+			<td>Telephone Type</td>
+			<td>Telephone Number</td>
+		</tr>
+		<tr th:each="telephone : ${telephones}">
+			<td th:text="${types[0].getDescriptionByType(telephone.type)}"></td>
+			<td><span th:text="${telephone.number}"></span> <a
+				th:href="@{/deleteTelephone/{telephoneId}(telephoneId=${telephone.id})}">Delete</a>
+
+			</td>
+		</tr>
+
+	</table>
+	<h3>What is your new telephone number?</h3>
+	<ul>
+		<li th:each="error : ${msgErrors}"><span th:text="${error}"></span></li>
+	</ul>
+	<form th:action="@{/saveTelephone/{userId}(userId=${user.id})}"
+		method="post">
+		<p>
+			<label for="number">Number</label> <input type="text" name="number">
+		</p>
+		<p>
+			<label for="type">Type</label> <select name="type">
+				<option th:each="typeTel : ${types}" th:value="${typeTel.type}"
+					th:text="${typeTel.description}"></option>
+			</select>
+		</p>
+		<p>
+			<input type="submit" name="save" value="Save">
+		</p>
+	</form>
+
+	<script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>

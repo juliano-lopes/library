@@ -1,8 +1,16 @@
 package com.jlopes.library.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.jlopes.library.exception.BookDataShouldNotBeEmptyException;
 
+@Entity
 public class Book {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private final long isbn;
 	private final String title;
 	private final String author;
@@ -34,10 +42,8 @@ public class Book {
 		return publisher;
 	}
 
-	public Book(long isbn, String title, String author, String genrer,
-			String kindOfLiterature, String publisher) {
-		if (isDataEmpty(isbn, title, author, genrer, kindOfLiterature,
-				publisher)) {
+	public Book(long isbn, String title, String author, String genrer, String kindOfLiterature, String publisher) {
+		if (isDataEmpty(isbn, title, author, genrer, kindOfLiterature, publisher)) {
 			throw new BookDataShouldNotBeEmptyException();
 		}
 		this.isbn = isbn;
@@ -49,9 +55,8 @@ public class Book {
 	}
 
 	public String toString() {
-		return "Title: " + title + "\n" + "Author: " + author + "\n"
-				+ "Genrer: " + genrer + "\n" + "Kind of literature: "
-				+ kindOfLiterature + "\n" + "Publisher: " + publisher + "\n";
+		return "Title: " + title + "\n" + "Author: " + author + "\n" + "Genrer: " + genrer + "\n"
+				+ "Kind of literature: " + kindOfLiterature + "\n" + "Publisher: " + publisher + "\n";
 	}
 
 	private boolean isDataEmpty(long isbn, String... params) {
