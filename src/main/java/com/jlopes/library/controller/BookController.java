@@ -6,75 +6,63 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jlopes.library.LibraryManager;
 import com.jlopes.library.domain.Book;
 import com.jlopes.library.exception.BookNotFoundException;
+import com.jlopes.library.repository.BookRepository;
 
 @RestController
 public class BookController {
-	private final LibraryManager library;
+	private final BookRepository bRepo;
 
 	@Autowired
-	public BookController(LibraryManager library) {
-		this.library = library;
+	public BookController(BookRepository bRepo) {
+		this.bRepo = bRepo;
 	}
 
-	@RequestMapping(value = "/books/{isbn}", method = RequestMethod.GET)
-	public Book getBook(@PathVariable long isbn) {
-		Book book = library.getBookByIsbn(isbn);
+	@RequestMapping(value = "/book/{isbn}", method = RequestMethod.GET)
+	public Book getBook(@PathVariable("isbn") long isbn) {
+		Book book = bRepo.findByIsbn(isbn);
 		if (book == null) {
 			throw new BookNotFoundException();
 		}
 		return book;
 	}
 
-	@RequestMapping(value = "/book/{name}", method = RequestMethod.GET)
-	public Book getByName(@PathVariable String name) {
-		Book book = library.searchedBook(name);
+	@RequestMapping(value = "/book/title/{title}", method = RequestMethod.GET)
+	public Book getByTitle(@PathVariable("title") String title) {
+		Book book = bRepo.findByTitle(title);
 		if (book == null) {
 			throw new BookNotFoundException();
 		}
 		return book;
 	}
 
-	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	@RequestMapping(value = "/book/all", method = RequestMethod.GET)
 	public List<Book> getAll() {
-		return library.getBooks();
+		return (List<Book>) bRepo.findAll();
 	}
 
-	@RequestMapping(value = "/books/search", method = RequestMethod.GET)
-	public List<Book> getAvailable(
-			@RequestParam("available") boolean isAvailable) {
-		if (isAvailable) {
-
-			return library.availableBooks();
-		}
-		return library.getUnavailableBooks();
-
-	}
-
-	@RequestMapping(value = "/books/{isbn}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/book/{isbn}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable long isbn) {
-		if (library.deleteBook(isbn)) {
+		try {
+			bRepo.delete(bRepo.findByIsbn(isbn));
 			return "Book deleted";
-		} else {
+		} catch (Exception e) {
 			return "Book not deleted";
 		}
 
 	}
 
-	@RequestMapping(value = "/books", method = RequestMethod.POST)
-	public boolean newBook(@RequestParam("isbn") long isbn,
-			@RequestParam("title") String title,
-			@RequestParam("author") String author,
-			@RequestParam("genrer") String genrer,
-			@RequestParam("kindOfLiterature") String kindOfLiterature,
-			@RequestParam("publisher") String publisher) {
-		return (library.addNewBook(isbn, title, author, genrer,
-				kindOfLiterature, publisher));
+	@RequestMapping(value = "/book", method = RequestMethod.POST)
+	public boolean newBook(Book book) {
+		try {
+			bRepo.save(book);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

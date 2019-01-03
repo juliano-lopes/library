@@ -6,4 +6,8 @@ import com.jlopes.library.domain.Book;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
 
+	Book findByIsbn(long isbn);
+
+	Book findByTitle(String title);
+
 }

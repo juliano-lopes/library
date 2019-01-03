@@ -15,14 +15,12 @@ public class BookTest {
 
 	@Before
 	public void setUp() {
-		book = new Book(111, "Se Houver Amanhã", "Sidney Sheldon", "Romance",
-				"Literatura Estrangeira", "Record");
+		book = new Book(111, "Se Houver Amanhã", "Sidney Sheldon", "Romance", "Literatura Estrangeira", "Record");
 	}
 
 	@Test(expected = BookDataShouldNotBeEmptyException.class)
 	public void souldReturnTitleAndAuthorShouldNotBeEmptyException() {
-		new Book(0, "Se Houver Amanhã", "Sidney Sheldon", "Romance",
-				"Literatura Estrangeira", "Record");
+		new Book(0, "Se Houver Amanhã", "Sidney Sheldon", "Romance", "Literatura Estrangeira", "Record");
 	}
 
 	@Test

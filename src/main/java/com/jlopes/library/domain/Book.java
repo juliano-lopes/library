@@ -11,12 +11,36 @@ import com.jlopes.library.exception.BookDataShouldNotBeEmptyException;
 public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private final long isbn;
-	private final String title;
-	private final String author;
-	private final String genrer;
-	private final String kindOfLiterature;
-	private final String publisher;
+	private long isbn;
+	private String title;
+	private String author;
+	private String genrer;
+	private String kindOfLiterature;
+	private String publisher;
+
+	public void setIsbn(long isbn) {
+		this.isbn = isbn;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public void setGenrer(String genrer) {
+		this.genrer = genrer;
+	}
+
+	public void setKindOfLiterature(String kindOfLiterature) {
+		this.kindOfLiterature = kindOfLiterature;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
 
 	public long getIsbn() {
 		return isbn;
@@ -40,6 +64,10 @@ public class Book {
 
 	public String getPublisher() {
 		return publisher;
+	}
+
+	public Book() {
+
 	}
 
 	public Book(long isbn, String title, String author, String genrer, String kindOfLiterature, String publisher) {
